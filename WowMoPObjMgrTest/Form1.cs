@@ -58,7 +58,7 @@ namespace WowMoPObjMgrTest
                 //if (obj.Guid != Game.ObjMgr.ActivePlayer)
                 //    continue;
 
-                listView1.Items.Add(new ListViewItem(new string[]
+                ListViewItem itm = listView1.Items.Add(new ListViewItem(new string[]
                     {
                         obj.Pointer.ToInt64().ToString("X16"),
                         obj.Type.ToString(),
@@ -67,6 +67,8 @@ namespace WowMoPObjMgrTest
                         obj.Scale.ToString(),
                         GetObjInfo(obj)
                     }));
+
+                itm.Tag = obj.Guid;
             }
 
             label1.Text = total.ToString();
@@ -148,6 +150,19 @@ namespace WowMoPObjMgrTest
                     }
                 }
             }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(listView1.SelectedItems.Count == 0)
+                return;
+
+            WowObject obj = Game.ObjMgr[(ulong)listView1.SelectedItems[0].Tag];
+
+            if (obj == null)
+                return;
+
+            propertyGrid1.SelectedObject = obj;
         }
     }
 }
