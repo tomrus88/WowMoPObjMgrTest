@@ -88,7 +88,7 @@ namespace WowMoPObjMgrTest
             get { return GetObjectByGUID(guid); }
         }
 
-        public WowObject GetObjectByGUID(ulong guid)
+        private WowObject GetObjectByGUID(ulong guid)
         {
             foreach (WowObject obj in this)
                 if (obj.Guid == guid)
@@ -128,11 +128,17 @@ namespace WowMoPObjMgrTest
 
                 switch(obj.Type)
                 {
+                    case WowObjectType.Item:
+                        yield return new WowItem(first);
+                        break;
+                    case WowObjectType.Container:
+                        yield return new WowContainer(first);
+                        break;
                     case WowObjectType.Unit:
                         yield return new WowUnit(first);
                         break;
                     case WowObjectType.Player:
-                        yield return new WowUnit(first);
+                        yield return new WowPlayer(first);
                         break;
                     default:
                         yield return obj;

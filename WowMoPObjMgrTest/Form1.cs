@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Media;
 using System.Windows.Forms;
@@ -14,6 +15,23 @@ namespace WowMoPObjMgrTest
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Stopwatch sw = new Stopwatch();
+
+            //sw.Start();
+
+            //for (int i = 0; i < 50000; ++i)
+            //{
+            //    var db = Game.g_FactionTemplateDB;
+            //    foreach (var f in db)
+            //    {
+            //    }
+            //}
+
+            //sw.Stop();
+
+            //var passed1 = sw.ElapsedMilliseconds;
+            //MessageBox.Show(passed1.ToString());
+
             //new DescriptorsDumper();
 
             listView1.Items.Clear();
@@ -37,12 +55,7 @@ namespace WowMoPObjMgrTest
                 else
                     other++;
 
-                //if (obj.Guid == objMgr.ActivePlayer)
-                //{
-                //    MessageBox.Show("Me!");
-                //}
-
-                //if (obj.Guid != objMgr.ActivePlayer)
+                //if (obj.Guid != Game.ObjMgr.ActivePlayer)
                 //    continue;
 
                 listView1.Items.Add(new ListViewItem(new string[]
@@ -54,11 +67,6 @@ namespace WowMoPObjMgrTest
                         obj.Scale.ToString(),
                         GetObjInfo(obj)
                     }));
-
-                //obj.SetValue(UnitFields.Health, obj.GetValue<int>(UnitFields.MaxHealth));
-                //obj.SetValue(UnitFields.Level, 90);
-                //obj.SetValue(UnitFields.Target, obj.Guid);
-                //obj.SetValue(ObjectFields.Scale, 5.0f);
             }
 
             label1.Text = total.ToString();
@@ -71,14 +79,17 @@ namespace WowMoPObjMgrTest
         string GetObjInfo(WowObject obj)
         {
             if (obj.Type == WowObjectType.Container)
-                return "Num. slots: " + obj.GetValue<int>(CGContainerData.NumSlots).ToString();
+                return "Num. slots: " + (obj as WowContainer).NumSlots.ToString();
 
             if (obj.Guid == Game.ObjMgr.ActivePlayer)
                 return "<<< Me!";
                 //return Memory.Read<Vector3>(obj.Pointer + 0x7E0 /* position x86 */).ToString();
 
             if (obj.Type == WowObjectType.Player)
-                return "Home Realm: " + obj.GetValue<int>(CGPlayerData.homePlayerRealm).ToString("X8");
+                return "Home Realm: " + (obj as WowPlayer).RealmId.ToString("X8");
+
+            if (obj.Type == WowObjectType.Unit && (obj as WowUnit).IsPet)
+                return "Pet";
 
             return String.Empty;
         }
@@ -94,7 +105,7 @@ namespace WowMoPObjMgrTest
             if (me == null)
                 return;
 
-            WowUnit target = (WowUnit)Game.ObjMgr[me.GetValue<ulong>(CGUnitData.Target)];
+            WowUnit target = me.Target;
 
             if (target == null)
                 return;

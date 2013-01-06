@@ -19,53 +19,69 @@ namespace WowMoPObjMgrTest
                 if (me == null)
                     return Reaction.Neutral;
 
-                int ftid1 = me.GetValue<int>(CGUnitData.FactionTemplate);
-                int ftid2 = GetValue<int>(CGUnitData.FactionTemplate);
+                int ftid_src = me.GetValue<int>(CGUnitData.FactionTemplate);
+                int ftid_dst = GetValue<int>(CGUnitData.FactionTemplate);
 
-                FactionTemplateRec? factionn1 = Game.g_FactionTemplateDB[ftid1];
-                FactionTemplateRec? factionn2 = Game.g_FactionTemplateDB[ftid2];
+                FactionTemplateRec faction_src, faction_dst;
 
-                if (!factionn1.HasValue || !factionn2.HasValue)
+                try
+                {
+                    faction_src = Game.g_FactionTemplateDB[ftid_src];
+                    faction_dst = Game.g_FactionTemplateDB[ftid_dst];
+                }
+                catch
+                {
                     return Reaction.Neutral;
+                }
 
-                FactionTemplateRec faction1 = factionn1.Value;
-                FactionTemplateRec faction2 = factionn2.Value;
-
-                if ((faction2.m_factionGroup & faction1.m_enemyGroup) != 0)
+                if ((faction_dst.m_factionGroup & faction_src.m_enemyGroup) != 0)
                     return Reaction.Hostile;
 
-                for (int i = 0; i < faction1.m_enemies.Length; ++i)
+                for (int i = 0; i < faction_src.m_enemies.Length; ++i)
                 {
-                    if (faction1.m_enemies[i] == 0)
+                    if (faction_src.m_enemies[i] == 0)
                         break;
-                    if (faction1.m_enemies[i] == faction2.m_faction)
+                    if (faction_src.m_enemies[i] == faction_dst.m_faction)
                         return Reaction.Hostile;
                 }
 
-                if ((faction2.m_factionGroup & faction1.m_friendGroup) != 0)
+                if ((faction_dst.m_factionGroup & faction_src.m_friendGroup) != 0)
                     return Reaction.Friendly;
 
-                for (int i = 0; i < faction1.m_friend.Length; ++i)
+                for (int i = 0; i < faction_src.m_friend.Length; ++i)
                 {
-                    if (faction1.m_friend[i] == 0)
+                    if (faction_src.m_friend[i] == 0)
                         break;
-                    if (faction1.m_friend[i] == faction2.m_faction)
+                    if (faction_src.m_friend[i] == faction_dst.m_faction)
                         return Reaction.Friendly;
                 }
 
-                if ((faction1.m_factionGroup & faction2.m_friendGroup) != 0)
+                if ((faction_src.m_factionGroup & faction_dst.m_friendGroup) != 0)
                     return Reaction.Friendly;
 
-                for (int i = 0; i < faction2.m_friend.Length; ++i)
+                for (int i = 0; i < faction_dst.m_friend.Length; ++i)
                 {
-                    if (faction2.m_friend[i] == 0)
+                    if (faction_dst.m_friend[i] == 0)
                         break;
-                    if (faction2.m_friend[i] == faction1.m_faction)
+                    if (faction_dst.m_friend[i] == faction_src.m_faction)
                         return Reaction.Friendly;
                 }
 
-                return (Reaction)(~(faction1.m_flags >> 12) & 2 | 1); // it seems checking for (factionFlags & 0x2000) != 0 ? 1 : 3
+                return (Reaction)(~(faction_src.m_flags >> 12) & 2 | 1); // it seems checking for (factionFlags & 0x2000) != 0 ? 1 : 3
             }
+        }
+
+        public WowUnit Target
+        {
+            get
+            {
+                return (WowUnit)Game.ObjMgr[GetValue<ulong>(CGUnitData.Target)];
+            }
+        }
+
+        public bool IsPet
+        {
+            get { return GetValue<ulong>(CGUnitData.SummonedBy) != 0; }
         }
     }
 }
