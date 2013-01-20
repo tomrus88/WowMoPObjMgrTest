@@ -55,6 +55,15 @@ namespace WowMoPObjMgrTest
         Friendly = 4,
     }
 
+    public enum Faction
+    {
+        Invalid = -1,
+        Neutral = 0, // 1
+        Alliance = 1, // 2
+        Horde = 2, // 4
+        Monster = 3 // 8
+    }
+
     enum CGObjectData
     {
         Guid = 0, // size 2

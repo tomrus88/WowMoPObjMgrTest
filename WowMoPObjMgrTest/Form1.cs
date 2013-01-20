@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Linq;
 using System.Media;
@@ -54,6 +55,9 @@ namespace WowMoPObjMgrTest
                     gos++;
                 else
                     other++;
+
+                if (obj.Type != WowObjectType.Player)
+                    continue;
 
                 //if (obj.Guid != Game.ObjMgr.ActivePlayer)
                 //    continue;

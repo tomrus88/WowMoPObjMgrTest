@@ -83,5 +83,38 @@ namespace WowMoPObjMgrTest
         {
             get { return GetValue<ulong>(CGUnitData.SummonedBy) != 0; }
         }
+
+        public int FactionTemplate
+        {
+            get { return GetValue<int>(CGUnitData.FactionTemplate); }
+        }
+
+        public Faction Faction
+        {
+            get
+            {
+                FactionTemplateRec ftemp;
+
+                try
+                {
+                    ftemp = Game.g_FactionTemplateDB[FactionTemplate];
+
+                    if ((ftemp.m_factionGroup & 1) != 0 && (ftemp.m_factionGroup & 6) == 0)
+                        return Faction.Neutral;
+                    else if ((ftemp.m_factionGroup & 2) != 0)
+                        return Faction.Alliance;
+                    else if ((ftemp.m_factionGroup & 4) != 0)
+                        return Faction.Horde;
+                    else if ((ftemp.m_factionGroup & 8) != 0)
+                        return Faction.Monster;
+                    else
+                        return Faction.Invalid;
+                }
+                catch
+                {
+                    return Faction.Invalid;
+                }
+            }
+        }
     }
 }
