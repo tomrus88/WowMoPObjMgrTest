@@ -90,6 +90,24 @@ namespace Wlp
             return returnObject;
         }
 
+        public T Read<T>(IntPtr baseAddr, params int[] offsets) where T : struct
+        {
+            IntPtr ptr = Read<IntPtr>(baseAddr);
+
+            if (ptr != IntPtr.Zero)
+            {
+                for (int i = 0; i < offsets.Length; ++i)
+                {
+                    if (i == offsets.Length - 1)
+                        return Read<T>(ptr + offsets[i]);
+
+                    ptr = Read<IntPtr>(ptr + offsets[i]);
+                }
+            }
+
+            return default(T);
+        }
+
         public void Write<T>(IntPtr offset, T value) where T : struct
         {
             byte[] buffer = new byte[Marshal.SizeOf(value)];

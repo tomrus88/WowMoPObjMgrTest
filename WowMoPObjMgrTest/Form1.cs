@@ -168,5 +168,30 @@ namespace WowMoPObjMgrTest
 
             propertyGrid1.SelectedObject = obj;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DBC<SpellMiscRec> SpellMisc = new DBC<SpellMiscRec>(Memory.BaseAddress + (IntPtr.Size == 4 ? 0xBFDA68 : 0 /* cba searching x64 offset*/), false);
+
+            for (int i = SpellMisc.MinIndex; i <= SpellMisc.MaxIndex; ++i)
+            {
+                if (SpellMisc.ContainsKey(i))
+                {
+                    IntPtr row = SpellMisc.GetRowPtr(i);
+
+                    if (row != IntPtr.Zero)
+                    {
+                        int value = Memory.Read<int>(row + 12);
+
+                        if ((value & 0x80) == 0)
+                            continue;
+
+                        value &= ~0x80;
+
+                        Memory.Write<int>(row + 12, value);
+                    }
+                }
+            }
+        }
     }
 }

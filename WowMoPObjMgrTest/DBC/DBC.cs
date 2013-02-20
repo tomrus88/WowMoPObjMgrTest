@@ -35,7 +35,7 @@ namespace WowMoPObjMgrTest
             m_cacheEnabled = enableCache;
         }
 
-        private IntPtr GetRowPtr(int id)
+        public IntPtr GetRowPtr(int id)
         {
             if (id < MinIndex || id > MaxIndex)
                 return IntPtr.Zero;

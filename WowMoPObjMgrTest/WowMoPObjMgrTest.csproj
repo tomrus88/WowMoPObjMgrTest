@@ -71,6 +71,7 @@
     <Compile Include="DBC\DBC.cs" />
     <Compile Include="DBC\DBCHeader.cs" />
     <Compile Include="DBC\FactionTemplateRec.cs" />
+    <Compile Include="DBC\SpellMiscRec.cs" />
     <Compile Include="DBC\WoWClientDB.cs" />
     <Compile Include="DescriptorsDumper.cs" />
     <Compile Include="Form1.cs">
