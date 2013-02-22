@@ -89,7 +89,7 @@ namespace WowMoPObjMgrTest
 
             if (obj.Guid == Game.ObjMgr.ActivePlayer)
                 return "<<< Me!";
-                //return Memory.Read<Vector3>(obj.Pointer + 0x7E0 /* position x86 */).ToString();
+            //return Memory.Read<Vector3>(obj.Pointer + 0x7E0 /* position x86 */).ToString();
 
             if (obj.Type == WowObjectType.Player)
                 return "Home Realm: " + (obj as WowPlayer).RealmId.ToString("X8");
@@ -158,7 +158,7 @@ namespace WowMoPObjMgrTest
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(listView1.SelectedItems.Count == 0)
+            if (listView1.SelectedItems.Count == 0)
                 return;
 
             WowObject obj = Game.ObjMgr[(ulong)listView1.SelectedItems[0].Tag];
@@ -173,25 +173,30 @@ namespace WowMoPObjMgrTest
         {
             DBC<SpellMiscRec> SpellMisc = new DBC<SpellMiscRec>(Memory.BaseAddress + (IntPtr.Size == 4 ? 0xBFDA68 : 0 /* cba searching x64 offset*/), false);
 
+            int removeValue = Convert.ToInt32(textBox1.Text, 16);
+            int addValue = Convert.ToInt32(textBox2.Text, 16);
+            int idx = Convert.ToInt32(textBox3.Text);
+
+            if (idx < 0 || idx > 12)
+            {
+                MessageBox.Show("Incorrect attribute index (0...12)");
+                return;
+            }
+
             for (int i = SpellMisc.MinIndex; i <= SpellMisc.MaxIndex; ++i)
             {
-                if (SpellMisc.ContainsKey(i))
+                IntPtr row = SpellMisc.GetRowPtr(i);
+
+                if (row != IntPtr.Zero)
                 {
-                    IntPtr row = SpellMisc.GetRowPtr(i);
-
-                    if (row != IntPtr.Zero)
-                    {
-                        int value = Memory.Read<int>(row + 12);
-
-                        if ((value & 0x80) == 0)
-                            continue;
-
-                        value &= ~0x80;
-
-                        Memory.Write<int>(row + 12, value);
-                    }
+                    int attr0 = Memory.Read<int>(row + 12 + idx * 4);
+                    attr0 &= ~removeValue;
+                    attr0 |= addValue;
+                    Memory.Write<int>(row + 12 + idx * 4, attr0);
                 }
             }
+
+            MessageBox.Show("Done!");
         }
     }
 }
