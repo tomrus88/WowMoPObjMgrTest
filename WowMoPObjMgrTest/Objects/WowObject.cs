@@ -67,7 +67,7 @@ namespace WowMoPObjMgrTest
 
         public int Entry
         {
-            get { return GetValue<int>(CGObjectData.Entry); }
+            get { return GetValue<int>(CGObjectData.EntryID); }
         }
 
         public float Scale

@@ -33,7 +33,7 @@ namespace WowMoPObjMgrTest
             //var passed1 = sw.ElapsedMilliseconds;
             //MessageBox.Show(passed1.ToString());
 
-            //new DescriptorsDumper();
+            new DescriptorsDumper();
 
             listView1.Items.Clear();
 

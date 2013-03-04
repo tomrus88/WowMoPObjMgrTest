@@ -12,7 +12,7 @@ namespace WowMoPObjMgrTest
 
         public int RealmId
         {
-            get { return GetValue<int>(CGPlayerData.homePlayerRealm); }
+            get { return GetValue<int>(CGPlayerData.HomePlayerRealm); }
         }
     }
 }
