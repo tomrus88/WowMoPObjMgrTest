@@ -35,17 +35,17 @@ namespace WowMoPObjMgrTest
         //const int g_baseAreaTriggerDescriptors = 0x0101BBB4;
         //const int g_baseSceneObjectDescriptors = 0x0101BB84;
 
-        // offsets for 5.1.0.16357
-        const int g_baseObjDescriptors = 0x0106B080 - 0x400000;
-        const int g_baseItemDescriptors = 0x0106AD48 - 0x400000;
-        const int g_baseContainerDescriptors = 0x0106A688 - 0x400000;
-        const int g_baseUnitDescriptors = 0x01069900 - 0x400000;
-        const int g_basePlayerDescriptors = 0x01063C70 - 0x400000;
-        const int g_baseGameObjectDescriptors = 0x0105DF38 - 0x400000;
-        const int g_baseDynamicObjectDescriptors = 0x0105DDF8 - 0x400000;
-        const int g_baseCorpseDescriptors = 0x0105DC08 - 0x400000;
-        const int g_baseAreaTriggerDescriptors = 0x0105D994 - 0x400000;
-        const int g_baseSceneObjectDescriptors = 0x0105D964 - 0x400000;
+        // offsets for 5.2.0.16826
+        const int g_baseObjDescriptors = 0x010F0E48 - 0x400000;
+        const int g_baseItemDescriptors = 0x010F0B10 - 0x400000;
+        const int g_baseContainerDescriptors = 0x010F0448 - 0x400000;
+        const int g_baseUnitDescriptors = 0x010EF6B8 - 0x400000;
+        const int g_basePlayerDescriptors = 0x010E99F0 - 0x400000;
+        const int g_baseGameObjectDescriptors = 0x010E3C90 - 0x400000;
+        const int g_baseDynamicObjectDescriptors = 0x010E3B50 - 0x400000;
+        const int g_baseCorpseDescriptors = 0x010E3960 - 0x400000;
+        const int g_baseAreaTriggerDescriptors = 0x010E36EC - 0x400000;
+        const int g_baseSceneObjectDescriptors = 0x010E36BC - 0x400000;
 
         //const int g_baseItemDynamicDescriptors = 0x01028BEC;
         //const int g_baseUnitDynamicDescriptors = 0x010273B8;

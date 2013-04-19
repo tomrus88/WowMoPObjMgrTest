@@ -56,17 +56,17 @@ namespace WowMoPObjMgrTest
                 else
                     other++;
 
-                if (obj.Type != WowObjectType.Player)
-                    continue;
+                //if (obj.Type != WowObjectType.Player)
+                //    continue;
 
                 //if (obj.Guid != Game.ObjMgr.ActivePlayer)
                 //    continue;
 
                 ListViewItem itm = listView1.Items.Add(new ListViewItem(new string[]
                     {
-                        obj.Pointer.ToInt64().ToString("X16"),
+                        obj.ToString(),
                         obj.Type.ToString(),
-                        obj.VisibleGuid.ToString("X16"),
+                        obj.VisibleGuid.ToString(),
                         obj.Entry.ToString(),
                         obj.Scale.ToString(),
                         GetObjInfo(obj)
@@ -161,7 +161,7 @@ namespace WowMoPObjMgrTest
             if (listView1.SelectedItems.Count == 0)
                 return;
 
-            WowObject obj = Game.ObjMgr[(ulong)listView1.SelectedItems[0].Tag];
+            WowObject obj = Game.ObjMgr[(WowGuid)listView1.SelectedItems[0].Tag];
 
             if (obj == null)
                 return;
@@ -171,7 +171,7 @@ namespace WowMoPObjMgrTest
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DBC<SpellMiscRec> SpellMisc = new DBC<SpellMiscRec>(Memory.BaseAddress + (IntPtr.Size == 4 ? 0xBFDA68 : 0 /* cba searching x64 offset*/), false);
+            DBC<SpellMiscRec> SpellMisc = new DBC<SpellMiscRec>(Memory.BaseAddress + (IntPtr.Size == 4 ? 0x00C824A4 : 0x00F8BD70), false);
 
             int removeValue = Convert.ToInt32(textBox1.Text, 16);
             int addValue = Convert.ToInt32(textBox2.Text, 16);

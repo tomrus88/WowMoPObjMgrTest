@@ -95,6 +95,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Objects\WowObject.cs" />
     <Compile Include="Objects\WowUnit.cs" />
+    <Compile Include="WowGuid.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

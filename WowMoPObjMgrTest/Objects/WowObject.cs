@@ -55,14 +55,14 @@ namespace WowMoPObjMgrTest
             get { return (WowObjectType)ObjectData.ObjectType; }
         }
 
-        public ulong Guid
+        public WowGuid Guid
         {
-            get { return ObjectData.Guid; }
+            get { return new WowGuid(ObjectData.Guid); }
         }
 
-        public ulong VisibleGuid
+        public WowGuid VisibleGuid
         {
-            get { return GetValue<ulong>(CGObjectData.Guid); }
+            get { return new WowGuid(GetValue<ulong>(CGObjectData.Guid)); }
         }
 
         public int Entry
@@ -88,6 +88,11 @@ namespace WowMoPObjMgrTest
         public bool IsA(ObjectTypeFlags flags)
         {
             return (GetValue<int>(CGObjectData.Type) & (int)flags) != 0;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("0x{0:X16}", Pointer.ToInt64());
         }
     }
 }

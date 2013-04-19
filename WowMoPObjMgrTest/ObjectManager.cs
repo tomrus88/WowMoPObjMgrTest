@@ -5,34 +5,68 @@ using System.Runtime.InteropServices;
 namespace WowMoPObjMgrTest
 {
     [StructLayout(LayoutKind.Sequential)]
-    struct TSList // TSList<CGObject_C,TSGetExplicitLink<CGObject_C>>
+    struct TSExplicitList
     {
-        public int Next;
-        public IntPtr unk1;
-        public IntPtr First; // usually equal to &unk1 | 1
+        public TSList baseClass;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    struct TSHashTable // TSHashTable<CGObject_C,CHashKeyGUID>
+    struct TSList
+    {
+        public int m_linkoffset;
+        public TSLink m_terminator;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct TSLink
+    {
+        public IntPtr m_prevlink; //TSLink *m_prevlink
+        public IntPtr m_next; // C_OBJECTHASH *m_next
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct TSHashTable
     {
         public IntPtr vtable;
-        public TSList Link;
-        public int unk1;
-        public int unk2;
-        public int count; // count of links?
-        public IntPtr unk4; // some pointer
-        public int unk5;
-        public int unk6;
-        public int unk7;
+        public TSExplicitList m_fulllist;
+        public int m_fullnessIndicator;
+        public TSGrowableArray m_slotlistarray;
+        public int m_slotmask;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct TSBaseArray
+    {
+        public IntPtr vtable;
+        public uint m_alloc;
+        public uint m_count;
+        public IntPtr m_data;//TSExplicitList* m_data;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct TSFixedArray
+    {
+        public TSBaseArray baseClass;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct TSGrowableArray
+    {
+        public TSFixedArray baseclass;
+        public uint m_chunk;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     struct CurMgr
     {
-        public TSHashTable VisibleObjects;
-        public TSHashTable ToBeFreedObjects;
+        public TSHashTable VisibleObjects; // m_objects
+        public TSHashTable ToBeFreedObjects; // m_lazyCleanupObjects
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
-        public TSList[] Links; // Links[9] has all objects stored in VisibleObjects it seems
+        // m_lazyCleanupFifo
+        // m_freeObjects
+        // m_visibleObjects
+        // m_reenabledObjects
+        public TSExplicitList[] Links; // Links[9] has all objects stored in VisibleObjects it seems
         public ulong ActivePlayer;
         public int PlayerType;
         public int MapId;
@@ -101,7 +135,7 @@ namespace WowMoPObjMgrTest
         {
             CurMgr mgr = Memory.Read<CurMgr>(BaseAddress);
             //return mgr.Links[ListIndex].First;
-            return mgr.VisibleObjects.Link.First;
+            return mgr.VisibleObjects.m_fulllist.baseClass.m_terminator.m_next;
             //return Memory.Read<IntPtr>(BaseAddress + FirstObjectOfs);
         }
 
@@ -109,7 +143,7 @@ namespace WowMoPObjMgrTest
         {
             CurMgr mgr = Memory.Read<CurMgr>(BaseAddress);
             //return Memory.Read<IntPtr>(current + mgr.Links[ListIndex].Next + 4);
-            return Memory.Read<IntPtr>(current + mgr.VisibleObjects.Link.Next + IntPtr.Size);
+            return Memory.Read<IntPtr>(current + mgr.VisibleObjects.m_fulllist.baseClass.m_linkoffset + IntPtr.Size);
             //return Memory.Read<IntPtr>(current + Memory.Read<int>(BaseAddress + NextObjectOfs) + 4);
         }
 
