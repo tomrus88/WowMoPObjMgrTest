@@ -25,5 +25,10 @@ namespace WowMoPObjMgrTest
 
             return guid.Value;
         }
+
+        public static explicit operator WowGuid(ulong guid)
+        {
+            return new WowGuid(guid);
+        }
     }
 }

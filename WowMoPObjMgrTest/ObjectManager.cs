@@ -90,10 +90,10 @@ namespace WowMoPObjMgrTest
             BaseAddress = Memory.Read<IntPtr>(Memory.BaseAddress + (IntPtr.Size == 4 ? Offsets.s_curMgr_x86 : Offsets.s_curMgr_x64));
         }
 
-        public ulong ActivePlayer
+        public WowGuid ActivePlayer
         {
             //get { return Memory.Read<ulong>(BaseAddress + LocalGuidOfs); }
-            get { return Memory.Read<CurMgr>(BaseAddress).ActivePlayer; }
+            get { return (WowGuid)Memory.Read<CurMgr>(BaseAddress).ActivePlayer; }
         }
 
         public WowUnit ActivePlayerObj
@@ -117,15 +117,15 @@ namespace WowMoPObjMgrTest
             get { return Memory.Read<CurMgr>(BaseAddress).MovementGlobals; }
         }
 
-        public WowObject this[ulong guid]
+        public WowObject this[WowGuid guid]
         {
             get { return GetObjectByGUID(guid); }
         }
 
-        private WowObject GetObjectByGUID(ulong guid)
+        private WowObject GetObjectByGUID(WowGuid guid)
         {
             foreach (WowObject obj in this)
-                if (obj.Guid == guid)
+                if (obj.Guid.Value == guid.Value)
                     return obj;
 
             return null;

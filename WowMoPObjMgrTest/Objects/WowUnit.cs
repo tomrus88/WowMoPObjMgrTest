@@ -75,7 +75,7 @@ namespace WowMoPObjMgrTest
         {
             get
             {
-                return (WowUnit)Game.ObjMgr[GetValue<ulong>(CGUnitData.Target)];
+                return (WowUnit)Game.ObjMgr[(WowGuid)GetValue<ulong>(CGUnitData.Target)];
             }
         }
 
