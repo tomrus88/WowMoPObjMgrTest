@@ -16,6 +16,9 @@ namespace WowMoPObjMgrTest
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //ulong i = 0xFFFFFFFF12345678;
+            //int j = (int)i;
+
             //Stopwatch sw = new Stopwatch();
 
             //sw.Start();

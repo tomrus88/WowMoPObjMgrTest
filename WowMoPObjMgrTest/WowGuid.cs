@@ -30,5 +30,29 @@ namespace WowMoPObjMgrTest
         {
             return new WowGuid(guid);
         }
+
+        public static bool operator==(WowGuid guid, ulong guid2)
+        {
+            return guid.Value == guid2;
+        }
+
+        public static bool operator !=(WowGuid guid, ulong guid2)
+        {
+            return guid.Value != guid2;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var temp = obj as WowGuid;
+            if (temp == null)
+                return false;
+
+            return m_guid == temp.Value;
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)m_guid;
+        }
     }
 }
