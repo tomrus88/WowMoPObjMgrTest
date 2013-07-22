@@ -24,7 +24,7 @@ namespace WowMoPObjMgrTest
         //int unk0;                   // 0x04 0x08
         IntPtr unk1;                // 0x0C 0x18
         public int ObjectType;      // 0x10 0x20
-        int unk3;                // 0x14 0x24
+        int unk3;                   // 0x14 0x24
         IntPtr unk4;                // 0x18 0x28
         IntPtr unk5;                // 0x1C 0x30
         IntPtr unk6;                // 0x20 0x38

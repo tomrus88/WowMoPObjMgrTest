@@ -114,7 +114,7 @@ namespace WowMoPObjMgrTest
 
         public Vector3 Position
         {
-            get { return Memory.Read<Vector3>(Pointer + 0x800 - 8); }
+            get { return Memory.Read<Vector3>(Pointer + 0x7F8); }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace WowMoPObjMgrTest
     {
         public Form1()
         {
-            int size = Marshal.SizeOf(typeof(CurMgr));
+            //int size = Marshal.SizeOf(typeof(CurMgr));
 
             InitializeComponent();
         }
