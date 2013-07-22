@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Diagnostics;
 using System.Linq;
 using System.Media;
@@ -16,16 +15,13 @@ namespace WowMoPObjMgrTest
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //ulong i = 0xFFFFFFFF12345678;
-            //int j = (int)i;
-
             //Stopwatch sw = new Stopwatch();
 
             //sw.Start();
 
             //for (int i = 0; i < 50000; ++i)
             //{
-            //    var db = Game.g_FactionTemplateDB;
+            //    var db = Game.FactionTemplateDB;
             //    foreach (var f in db)
             //    {
             //    }
@@ -36,7 +32,7 @@ namespace WowMoPObjMgrTest
             //var passed1 = sw.ElapsedMilliseconds;
             //MessageBox.Show(passed1.ToString());
 
-            new DescriptorsDumper();
+            //new DescriptorsDumper();
 
             listView1.Items.Clear();
 
@@ -91,7 +87,8 @@ namespace WowMoPObjMgrTest
                 return "Num. slots: " + (obj as WowContainer).NumSlots.ToString();
 
             if (obj.Guid == Game.ObjMgr.ActivePlayer)
-                return "<<< Me!";
+                return "<<< Me!" + " " + (obj as WowUnit).Position;
+
             //return Memory.Read<Vector3>(obj.Pointer + 0x7E0 /* position x86 */).ToString();
 
             if (obj.Type == WowObjectType.Player)
@@ -119,7 +116,7 @@ namespace WowMoPObjMgrTest
             if (target == null)
                 return;
 
-            label11.Text = target.UnitReaction.ToString();
+            label11.Text = target.UnitReaction(me).ToString();
 
             //var targets = objMgr.Where(o => o.Type == WowObjectType.Unit && npcs.Contains(o.Entry));
 
@@ -174,8 +171,6 @@ namespace WowMoPObjMgrTest
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DBC<SpellMiscRec> SpellMisc = new DBC<SpellMiscRec>(Memory.BaseAddress + (IntPtr.Size == 4 ? 0x00C824A4 : 0x00F8BD70), false);
-
             int removeValue = Convert.ToInt32(textBox1.Text, 16);
             int addValue = Convert.ToInt32(textBox2.Text, 16);
             int idx = Convert.ToInt32(textBox3.Text);
@@ -186,9 +181,9 @@ namespace WowMoPObjMgrTest
                 return;
             }
 
-            for (int i = SpellMisc.MinIndex; i <= SpellMisc.MaxIndex; ++i)
+            for (int i = Game.SpellMiscDB.MinIndex; i <= Game.SpellMiscDB.MaxIndex; ++i)
             {
-                IntPtr row = SpellMisc.GetRowPtr(i);
+                IntPtr row = Game.SpellMiscDB.GetRowPtr(i);
 
                 if (row != IntPtr.Zero)
                 {

@@ -62,10 +62,7 @@ namespace WowMoPObjMgrTest
         public TSHashTable VisibleObjects; // m_objects
         public TSHashTable ToBeFreedObjects; // m_lazyCleanupObjects
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
-        // m_lazyCleanupFifo
-        // m_freeObjects
-        // m_visibleObjects
-        // m_reenabledObjects
+        // m_lazyCleanupFifo, m_freeObjects, m_visibleObjects, m_reenabledObjects, ...
         public TSExplicitList[] Links; // Links[9] has all objects stored in VisibleObjects it seems
         public ulong ActivePlayer;
         public int PlayerType;
@@ -156,11 +153,17 @@ namespace WowMoPObjMgrTest
         {
             IntPtr first = FirstObject();
 
+            // Must keep struct up to date in order for this to work
+            IntPtr typeOffset = Marshal.OffsetOf(typeof(WowObjStruct), "ObjectType");
+
             while (((first.ToInt64() & 1) == 0) && first != IntPtr.Zero)
             {
-                WowObject obj = new WowObject(first);
+                WowObjectType type = Memory.Read<WowObjectType>(first + typeOffset.ToInt32());
 
-                switch(obj.Type)
+                //WowObject obj = new WowObject(first);
+
+                //switch(obj.Type)
+                switch (type)
                 {
                     case WowObjectType.Item:
                         yield return new WowItem(first);
@@ -175,7 +178,8 @@ namespace WowMoPObjMgrTest
                         yield return new WowPlayer(first);
                         break;
                     default:
-                        yield return obj;
+                        //yield return obj;
+                        yield return new WowObject(first);
                         break;
                 }
                 //yield return new WowObject(first);

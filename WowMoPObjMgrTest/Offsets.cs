@@ -8,5 +8,8 @@ namespace WowMoPObjMgrTest
 
         public const int g_FactionTemplateDB_x86 = 0x00C804B0;    // 5.2.0.16826
         public const int g_FactionTemplateDB_x64 = 0x00F88350;    // 5.2.0.16826
+
+        public const int g_SpellMiscDB_x86 = 0x00C824A4;    // 5.2.0.16826
+        public const int g_SpellMiscDB_x64 = 0x00F8BD70;    // 5.2.0.16826
     }
 }

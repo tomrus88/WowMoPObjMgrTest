@@ -10,65 +10,60 @@ namespace WowMoPObjMgrTest
 
         }
 
-        public Reaction UnitReaction
+        public Reaction UnitReaction(WowUnit other)
         {
-            get
+            if (other == null)
+                return Reaction.Neutral;
+
+            int ftid_src = other.GetValue<int>(CGUnitData.FactionTemplate);
+            int ftid_dst = GetValue<int>(CGUnitData.FactionTemplate);
+
+            FactionTemplateRec faction_src, faction_dst;
+
+            try
             {
-                WowUnit me = Game.ObjMgr.ActivePlayerObj;
-
-                if (me == null)
-                    return Reaction.Neutral;
-
-                int ftid_src = me.GetValue<int>(CGUnitData.FactionTemplate);
-                int ftid_dst = GetValue<int>(CGUnitData.FactionTemplate);
-
-                FactionTemplateRec faction_src, faction_dst;
-
-                try
-                {
-                    faction_src = Game.g_FactionTemplateDB[ftid_src];
-                    faction_dst = Game.g_FactionTemplateDB[ftid_dst];
-                }
-                catch
-                {
-                    return Reaction.Neutral;
-                }
-
-                if ((faction_dst.m_factionGroup & faction_src.m_enemyGroup) != 0)
-                    return Reaction.Hostile;
-
-                for (int i = 0; i < faction_src.m_enemies.Length; ++i)
-                {
-                    if (faction_src.m_enemies[i] == 0)
-                        break;
-                    if (faction_src.m_enemies[i] == faction_dst.m_faction)
-                        return Reaction.Hostile;
-                }
-
-                if ((faction_dst.m_factionGroup & faction_src.m_friendGroup) != 0)
-                    return Reaction.Friendly;
-
-                for (int i = 0; i < faction_src.m_friend.Length; ++i)
-                {
-                    if (faction_src.m_friend[i] == 0)
-                        break;
-                    if (faction_src.m_friend[i] == faction_dst.m_faction)
-                        return Reaction.Friendly;
-                }
-
-                if ((faction_src.m_factionGroup & faction_dst.m_friendGroup) != 0)
-                    return Reaction.Friendly;
-
-                for (int i = 0; i < faction_dst.m_friend.Length; ++i)
-                {
-                    if (faction_dst.m_friend[i] == 0)
-                        break;
-                    if (faction_dst.m_friend[i] == faction_src.m_faction)
-                        return Reaction.Friendly;
-                }
-
-                return (Reaction)(~(faction_src.m_flags >> 12) & 2 | 1); // it seems checking for (factionFlags & 0x2000) != 0 ? 1 : 3
+                faction_src = Game.FactionTemplateDB[ftid_src];
+                faction_dst = Game.FactionTemplateDB[ftid_dst];
             }
+            catch
+            {
+                return Reaction.Neutral;
+            }
+
+            if ((faction_dst.m_factionGroup & faction_src.m_enemyGroup) != 0)
+                return Reaction.Hostile;
+
+            for (int i = 0; i < faction_src.m_enemies.Length; ++i)
+            {
+                if (faction_src.m_enemies[i] == 0)
+                    break;
+                if (faction_src.m_enemies[i] == faction_dst.m_faction)
+                    return Reaction.Hostile;
+            }
+
+            if ((faction_dst.m_factionGroup & faction_src.m_friendGroup) != 0)
+                return Reaction.Friendly;
+
+            for (int i = 0; i < faction_src.m_friend.Length; ++i)
+            {
+                if (faction_src.m_friend[i] == 0)
+                    break;
+                if (faction_src.m_friend[i] == faction_dst.m_faction)
+                    return Reaction.Friendly;
+            }
+
+            if ((faction_src.m_factionGroup & faction_dst.m_friendGroup) != 0)
+                return Reaction.Friendly;
+
+            for (int i = 0; i < faction_dst.m_friend.Length; ++i)
+            {
+                if (faction_dst.m_friend[i] == 0)
+                    break;
+                if (faction_dst.m_friend[i] == faction_src.m_faction)
+                    return Reaction.Friendly;
+            }
+
+            return (Reaction)(~(faction_src.m_flags >> 12) & 2 | 1); // it seems checking for (factionFlags & 0x2000) != 0 ? 1 : 3
         }
 
         public WowUnit Target
@@ -97,7 +92,7 @@ namespace WowMoPObjMgrTest
 
                 try
                 {
-                    ftemp = Game.g_FactionTemplateDB[FactionTemplate];
+                    ftemp = Game.FactionTemplateDB[FactionTemplate];
 
                     if ((ftemp.m_factionGroup & 1) != 0 && (ftemp.m_factionGroup & 6) == 0)
                         return Faction.Neutral;
@@ -115,6 +110,11 @@ namespace WowMoPObjMgrTest
                     return Faction.Invalid;
                 }
             }
+        }
+
+        public Vector3 Position
+        {
+            get { return Memory.Read<Vector3>(Pointer + 0x800); }
         }
     }
 }
