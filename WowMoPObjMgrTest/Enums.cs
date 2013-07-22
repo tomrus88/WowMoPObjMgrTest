@@ -70,8 +70,9 @@ namespace WowMoPObjMgrTest
         Data = 2, // size 2, flags MIRROR_ALL
         Type = 4, // size 1, flags MIRROR_ALL
         EntryID = 5, // size 1, flags MIRROR_VIEWER_DEPENDENT
-        Scale = 6, // size 1, flags MIRROR_ALL
-        End = 7
+        DynamicFlags = 6, // size 1, flags MIRROR_VIEWER_DEPENDENT, MIRROR_URGENT
+        Scale = 7, // size 1, flags MIRROR_ALL
+        End = 8
     }
 
     enum CGItemData

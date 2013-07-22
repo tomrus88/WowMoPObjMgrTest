@@ -61,9 +61,12 @@ namespace WowMoPObjMgrTest
     {
         public TSHashTable VisibleObjects; // m_objects
         public TSHashTable ToBeFreedObjects; // m_lazyCleanupObjects
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 11)]
         // m_lazyCleanupFifo, m_freeObjects, m_visibleObjects, m_reenabledObjects, ...
         public TSExplicitList[] Links; // Links[9] has all objects stored in VisibleObjects it seems
+#if !X64
+        public int Unknown1; // wtf is that and why x86 only?
+#endif
         public ulong ActivePlayer;
         public int PlayerType;
         public int MapId;
@@ -73,7 +76,10 @@ namespace WowMoPObjMgrTest
 
     class ObjectManager : IEnumerable<WowObject>
     {
-        private IntPtr BaseAddress;
+        private IntPtr BaseAddress
+        {
+            get { return Memory.Read<IntPtr>(Memory.BaseAddress + (IntPtr.Size == 4 ? Offsets.s_curMgr_x86 : Offsets.s_curMgr_x64)); }
+        }
 
         //private const int FirstObjectOfs = 0xC;
         //private const int NextObjectOfs = 0x4;
@@ -84,7 +90,8 @@ namespace WowMoPObjMgrTest
 
         public ObjectManager()
         {
-            BaseAddress = Memory.Read<IntPtr>(Memory.BaseAddress + (IntPtr.Size == 4 ? Offsets.s_curMgr_x86 : Offsets.s_curMgr_x64));
+            // they seems to be creating new object manager every time you switch maps...
+            //BaseAddress = Memory.Read<IntPtr>(Memory.BaseAddress + (IntPtr.Size == 4 ? Offsets.s_curMgr_x86 : Offsets.s_curMgr_x64));
         }
 
         public WowGuid ActivePlayer
@@ -158,7 +165,7 @@ namespace WowMoPObjMgrTest
 
             while (((first.ToInt64() & 1) == 0) && first != IntPtr.Zero)
             {
-                WowObjectType type = Memory.Read<WowObjectType>(first + typeOffset.ToInt32());
+                WowObjectType type = (WowObjectType)Memory.Read<int>(first + typeOffset.ToInt32());
 
                 //WowObject obj = new WowObject(first);
 

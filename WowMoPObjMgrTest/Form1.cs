@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Media;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace WowMoPObjMgrTest
@@ -10,6 +11,8 @@ namespace WowMoPObjMgrTest
     {
         public Form1()
         {
+            int size = Marshal.SizeOf(typeof(CurMgr));
+
             InitializeComponent();
         }
 
@@ -88,8 +91,6 @@ namespace WowMoPObjMgrTest
 
             if (obj.Guid == Game.ObjMgr.ActivePlayer)
                 return "<<< Me!" + " " + (obj as WowUnit).Position;
-
-            //return Memory.Read<Vector3>(obj.Pointer + 0x7E0 /* position x86 */).ToString();
 
             if (obj.Type == WowObjectType.Player)
                 return "Home Realm: " + (obj as WowPlayer).RealmId.ToString("X8");
