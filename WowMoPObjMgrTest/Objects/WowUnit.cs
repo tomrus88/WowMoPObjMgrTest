@@ -114,7 +114,7 @@ namespace WowMoPObjMgrTest
 
         public Vector3 Position
         {
-            get { return Memory.Read<Vector3>(Pointer + 0x7F8); }
+            get { return Memory.Read<Vector3>(Pointer + (IntPtr.Size == 4 ? Offsets.UnitPosition_x86 : Offsets.UnitPosition_x64)); }
         }
     }
 }

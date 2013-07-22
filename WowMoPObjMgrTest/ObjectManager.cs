@@ -60,9 +60,9 @@ namespace WowMoPObjMgrTest
     struct CurMgr
     {
         public TSHashTable VisibleObjects; // m_objects
-        public TSHashTable ToBeFreedObjects; // m_lazyCleanupObjects
+        public TSHashTable LazyCleanupObjects; // m_lazyCleanupObjects
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 11)]
-        // m_lazyCleanupFifo, m_freeObjects, m_visibleObjects, m_reenabledObjects, ...
+        // m_lazyCleanupFifo, m_freeObjects, m_visibleObjects, m_reenabledObjects, whateverObjects...
         public TSExplicitList[] Links; // Links[9] has all objects stored in VisibleObjects it seems
 #if !X64
         public int Unknown1; // wtf is that and why x86 only?
@@ -161,11 +161,11 @@ namespace WowMoPObjMgrTest
             IntPtr first = FirstObject();
 
             // Must keep struct up to date in order for this to work
-            IntPtr typeOffset = Marshal.OffsetOf(typeof(WowObjStruct), "ObjectType");
+            int typeOffset = Marshal.OffsetOf(typeof(WowObjStruct), "ObjectType").ToInt32();
 
             while (((first.ToInt64() & 1) == 0) && first != IntPtr.Zero)
             {
-                WowObjectType type = (WowObjectType)Memory.Read<int>(first + typeOffset.ToInt32());
+                WowObjectType type = (WowObjectType)Memory.Read<int>(first + typeOffset);
 
                 //WowObject obj = new WowObject(first);
 
