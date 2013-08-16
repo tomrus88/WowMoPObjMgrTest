@@ -41,7 +41,9 @@ namespace WowMoPObjMgrTest
 
             int total = 0;
             int items = 0;
+            int conts = 0;
             int units = 0;
+            int plrs = 0;
             int gos = 0;
             int other = 0;
 
@@ -50,9 +52,17 @@ namespace WowMoPObjMgrTest
                 total++;
 
                 if (obj.IsA(ObjectTypeFlags.Item))
+                {
                     items++;
+                    if (obj.IsA(ObjectTypeFlags.Container))
+                        conts++;
+                }
                 else if (obj.IsA(ObjectTypeFlags.Unit))
+                {
                     units++;
+                    if (obj.IsA(ObjectTypeFlags.Player))
+                        plrs++;
+                }
                 else if (obj.IsA(ObjectTypeFlags.GameObject))
                     gos++;
                 else
@@ -78,9 +88,9 @@ namespace WowMoPObjMgrTest
             }
 
             label1.Text = total.ToString();
-            label4.Text = units.ToString();
+            label4.Text = String.Format("{0} ({1} players)", units, plrs);
             label6.Text = gos.ToString();
-            label8.Text = items.ToString();
+            label8.Text = String.Format("{0} ({1} containters)", items, conts);
             label10.Text = other.ToString();
         }
 
@@ -101,7 +111,7 @@ namespace WowMoPObjMgrTest
             return String.Empty;
         }
 
-        int[] npcs = new int[] { 52176, 54318, 54319, 50831 };
+        int[] npcs = new int[] { /*52176, 54318, 54319, 50831,*/ 50339 };
 
         SoundPlayer sp = new SoundPlayer("RaidWarning.wav");
 
@@ -114,10 +124,8 @@ namespace WowMoPObjMgrTest
 
             WowUnit target = me.Target;
 
-            if (target == null)
-                return;
-
-            label11.Text = target.UnitReaction(me).ToString();
+            if (target != null)
+                label11.Text = target.UnitReaction(me).ToString();
 
             //var targets = objMgr.Where(o => o.Type == WowObjectType.Unit && npcs.Contains(o.Entry));
 

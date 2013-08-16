@@ -100,10 +100,10 @@ namespace WowMoPObjMgrTest
             get { return (WowGuid)Memory.Read<CurMgr>(BaseAddress).ActivePlayer; }
         }
 
-        public WowUnit ActivePlayerObj
+        public WowPlayer ActivePlayerObj
         {
             //get { return Memory.Read<ulong>(BaseAddress + LocalGuidOfs); }
-            get { return (WowUnit)GetObjectByGUID(ActivePlayer); }
+            get { return (WowPlayer)GetObjectByGUID(ActivePlayer); }
         }
 
         public int MapId
