@@ -122,7 +122,7 @@ namespace WowMoPObjMgrTest
             if (me == null)
                 return;
 
-            WowUnit target = me.Target;
+            WowUnit target = me.TargetUnit;
 
             if (target != null)
                 label11.Text = target.UnitReaction(me).ToString();

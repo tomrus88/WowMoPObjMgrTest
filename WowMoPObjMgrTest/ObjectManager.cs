@@ -88,16 +88,10 @@ namespace WowMoPObjMgrTest
         //private const int LocalGuidOfs = 0xD0;
         //private const int ListIndex = 9;
 
-        public ObjectManager()
-        {
-            // they seems to be creating new object manager every time you switch maps...
-            //BaseAddress = Memory.Read<IntPtr>(Memory.BaseAddress + (IntPtr.Size == 4 ? Offsets.s_curMgr_x86 : Offsets.s_curMgr_x64));
-        }
-
         public WowGuid ActivePlayer
         {
             //get { return Memory.Read<ulong>(BaseAddress + LocalGuidOfs); }
-            get { return (WowGuid)Memory.Read<CurMgr>(BaseAddress).ActivePlayer; }
+            get { return new WowGuid(Memory.Read<CurMgr>(BaseAddress).ActivePlayer); }
         }
 
         public WowPlayer ActivePlayerObj
@@ -129,7 +123,7 @@ namespace WowMoPObjMgrTest
         private WowObject GetObjectByGUID(WowGuid guid)
         {
             foreach (WowObject obj in this)
-                if (obj.Guid.Value == guid.Value)
+                if (obj.Guid == guid)
                     return obj;
 
             return null;
@@ -167,9 +161,6 @@ namespace WowMoPObjMgrTest
             {
                 WowObjectType type = (WowObjectType)Memory.Read<int>(first + typeOffset);
 
-                //WowObject obj = new WowObject(first);
-
-                //switch(obj.Type)
                 switch (type)
                 {
                     case WowObjectType.Item:
@@ -185,11 +176,9 @@ namespace WowMoPObjMgrTest
                         yield return new WowPlayer(first);
                         break;
                     default:
-                        //yield return obj;
                         yield return new WowObject(first);
                         break;
                 }
-                //yield return new WowObject(first);
 
                 first = NextObject(first);
             }

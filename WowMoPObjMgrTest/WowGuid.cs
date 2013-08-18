@@ -2,11 +2,12 @@
 
 namespace WowMoPObjMgrTest
 {
-    class WowGuid
+    struct WowGuid
     {
         private ulong m_guid;
 
         public ulong Value { get { return m_guid; } }
+        public static readonly WowGuid Zero = new WowGuid(0);
 
         public WowGuid(ulong guid)
         {
@@ -18,41 +19,26 @@ namespace WowMoPObjMgrTest
             return String.Format("0x{0:X16}", m_guid);
         }
 
-        public static implicit operator ulong(WowGuid guid)
+        public static bool operator ==(WowGuid guid, WowGuid guid2)
         {
-            if (guid == null)
-                return 0;
-
-            return guid.Value;
+            return guid.Value == guid2.Value;
         }
 
-        public static explicit operator WowGuid(ulong guid)
+        public static bool operator !=(WowGuid guid, WowGuid guid2)
         {
-            return new WowGuid(guid);
-        }
-
-        public static bool operator==(WowGuid guid, ulong guid2)
-        {
-            return guid.Value == guid2;
-        }
-
-        public static bool operator !=(WowGuid guid, ulong guid2)
-        {
-            return guid.Value != guid2;
+            return guid.Value != guid2.Value;
         }
 
         public override bool Equals(object obj)
         {
-            var temp = obj as WowGuid;
-            if (temp == null)
-                return false;
-
-            return m_guid == temp.Value;
+            if (obj is WowGuid)
+                return m_guid == ((WowGuid)obj).Value;
+            return false;
         }
 
         public override int GetHashCode()
         {
-            return (int)m_guid;
+            return m_guid.GetHashCode();
         }
     }
 }

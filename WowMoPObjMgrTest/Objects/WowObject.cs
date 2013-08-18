@@ -57,12 +57,12 @@ namespace WowMoPObjMgrTest
 
         public WowGuid Guid
         {
-            get { return (WowGuid)ObjectData.Guid; }
+            get { return new WowGuid(ObjectData.Guid); }
         }
 
         public WowGuid VisibleGuid
         {
-            get { return (WowGuid)GetValue<ulong>(CGObjectData.Guid); }
+            get { return GetValue<WowGuid>(CGObjectData.Guid); }
         }
 
         public int Entry

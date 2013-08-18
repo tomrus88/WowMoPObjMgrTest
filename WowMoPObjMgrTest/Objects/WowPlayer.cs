@@ -2,6 +2,14 @@
 
 namespace WowMoPObjMgrTest
 {
+    [Flags]
+    enum PlayerFlags
+    {
+        Commentator = 0x80000,
+        CommentatorUber = 0x400000,
+        CommentatorMask = Commentator | CommentatorUber
+    }
+
     class WowPlayer : WowUnit
     {
         public WowPlayer(IntPtr address)
@@ -12,7 +20,13 @@ namespace WowMoPObjMgrTest
 
         public int RealmId
         {
-            get { return GetValue<int>(CGPlayerData.HomePlayerRealm); }
+            get { return GetValue<int>(CGPlayerData.VirtualPlayerRealm); }
+        }
+
+        public PlayerFlags Flags
+        {
+            get { return (PlayerFlags)GetValue<int>(CGPlayerData.PlayerFlags); }
+            set { SetValue<int>(CGPlayerData.PlayerFlags, (int)value); }
         }
     }
 }

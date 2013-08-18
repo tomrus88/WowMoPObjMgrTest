@@ -66,17 +66,22 @@ namespace WowMoPObjMgrTest
             return (Reaction)(~(faction_src.m_flags >> 12) & 2 | 1); // it seems checking for (factionFlags & 0x2000) != 0 ? 1 : 3
         }
 
-        public WowUnit Target
+        public WowGuid TargetGuid
+        {
+            get { return GetValue<WowGuid>(CGUnitData.Target); }
+        }
+
+        public WowUnit TargetUnit
         {
             get
             {
-                return (WowUnit)Game.ObjMgr[(WowGuid)GetValue<ulong>(CGUnitData.Target)];
+                return (WowUnit)Game.ObjMgr[TargetGuid];
             }
         }
 
         public bool IsPet
         {
-            get { return GetValue<ulong>(CGUnitData.SummonedBy) != 0; }
+            get { return GetValue<WowGuid>(CGUnitData.SummonedBy) != WowGuid.Zero; }
         }
 
         public int FactionTemplate
