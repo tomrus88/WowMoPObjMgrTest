@@ -28,5 +28,17 @@ namespace WowMoPObjMgrTest
             get { return (PlayerFlags)GetValue<int>(CGPlayerData.PlayerFlags); }
             set { SetValue<int>(CGPlayerData.PlayerFlags, (int)value); }
         }
+
+        public TrackCreatureFlags TrackCreatureMask
+        {
+            get { return (TrackCreatureFlags)GetValue<int>(CGPlayerData.TrackCreatureMask); }
+            set { SetValue<int>(CGPlayerData.TrackCreatureMask, (int)value); }
+        }
+
+        public TrackObjectFlags TrackResourceMask
+        {
+            get { return (TrackObjectFlags)GetValue<int>(CGPlayerData.TrackResourceMask); }
+            set { SetValue<int>(CGPlayerData.TrackResourceMask, (int)value); }
+        }
     }
 }

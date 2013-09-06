@@ -205,5 +205,39 @@ namespace WowMoPObjMgrTest
 
             MessageBox.Show("Done!");
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var val = (TrackCreatureFlags)Convert.ToInt32(textBox4.Text);
+
+                var player = Game.ObjMgr.ActivePlayerObj;
+
+                if (player != null)
+                    player.TrackCreatureMask = val;
+            }
+            catch
+            {
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var openableMask = TrackObjectFlags.Open | TrackObjectFlags.OpenAttacking | TrackObjectFlags.OpenKneeling | TrackObjectFlags.OpenFromVehicle;
+
+                var val = (TrackObjectFlags)Convert.ToInt32(textBox5.Text);
+
+                var player = Game.ObjMgr.ActivePlayerObj;
+
+                if (player != null)
+                    player.TrackResourceMask = openableMask;
+            }
+            catch
+            {
+            }
+        }
     }
 }

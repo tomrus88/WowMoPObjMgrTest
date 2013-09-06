@@ -57,7 +57,7 @@ namespace WowMoPObjMgrTest
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    struct CurMgr
+    struct CurMgr // 248 bytes x86, 456 bytes x64
     {
         public TSHashTable VisibleObjects; // m_objects
         public TSHashTable LazyCleanupObjects; // m_lazyCleanupObjects
