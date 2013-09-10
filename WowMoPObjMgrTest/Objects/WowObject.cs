@@ -75,6 +75,17 @@ namespace WowMoPObjMgrTest
             get { return GetValue<float>(CGObjectData.Scale); }
         }
 
+        public uint DynamicFlags
+        {
+            get { return GetValue<uint>(CGObjectData.DynamicFlags); }
+            set { SetValue<uint>(CGObjectData.DynamicFlags, value); }
+        }
+
+        public ulong Data
+        {
+            get { return GetValue<ulong>(CGObjectData.Data); }
+        }
+
         public T GetValue<T>(Enum index) where T : struct
         {
             return Memory.Read<T>(ObjectData.Descriptors + Convert.ToInt32(index) * 4);

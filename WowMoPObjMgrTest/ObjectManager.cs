@@ -175,6 +175,9 @@ namespace WowMoPObjMgrTest
                     case WowObjectType.Player:
                         yield return new WowPlayer(first);
                         break;
+                    case WowObjectType.GameObject:
+                        yield return new WowGameObject(first);
+                        break;
                     default:
                         yield return new WowObject(first);
                         break;

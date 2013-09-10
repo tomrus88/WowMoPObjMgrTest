@@ -85,6 +85,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="ObjectManager.cs" />
+    <Compile Include="Objects\WowGameObject.cs" />
     <Compile Include="Objects\WowItem.cs" />
     <Compile Include="Objects\WowContainer.cs" />
     <Compile Include="Objects\WowPlayer.cs" />

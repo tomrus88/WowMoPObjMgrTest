@@ -121,5 +121,24 @@ namespace WowMoPObjMgrTest
         {
             get { return Memory.Read<Vector3>(Pointer + (IntPtr.Size == 4 ? Offsets.UnitPosition_x86 : Offsets.UnitPosition_x64)); }
         }
+
+        public float DistanceTo(WowUnit unit)
+        {
+            if (unit == null)
+                return 0.0f;
+
+            var myPos = Position;
+            var hisPos = unit.Position;
+
+            var dx = myPos.X - hisPos.X;
+            var dy = myPos.Y - hisPos.Y;
+            var dz = myPos.Z - hisPos.Z;
+            return (float)Math.Sqrt(dx * dx + dy * dy + dz * dz);
+        }
+
+        public float DistanceToMe
+        {
+            get { return DistanceTo(Game.ObjMgr.ActivePlayerObj); }
+        }
     }
 }

@@ -89,7 +89,7 @@ namespace WowMoPObjMgrTest
         Fishing = 0x00040000,
         Inscription = 0x00080000,
         OpenFromVehicle = 0x00100000,
-        notsure = 0x00200000,
+        NotSure = 0x00200000,
         All = -1, // 0xFFFFFFFF
     }
 
