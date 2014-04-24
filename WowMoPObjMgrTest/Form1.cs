@@ -162,7 +162,7 @@ namespace WowMoPObjMgrTest
         }
 
         int[] gos = new int[] { 223103, 223107 };
-        int[] npcs = new int[] { /*52176, 54318, 54319, 50831, 50339*/50409, 50410, 50411 };
+        int[] npcs = new int[] { /*52176, 54318, 54319, 50831, 50339, 50409, 50410, 50411,*/ 50061, 50062, 51236 };
 
         SoundPlayer sp = new SoundPlayer("RaidWarning.wav");
 

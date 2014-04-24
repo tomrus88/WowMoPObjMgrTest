@@ -114,7 +114,7 @@ namespace WowMoPObjMgrTest
         All = -1, // 0xFFFFFFFF
     }
 
-    enum CGObjectData
+    public enum CGObjectData
     {
         Guid = 0, // size 2, flags MIRROR_ALL
         Data = 2, // size 2, flags MIRROR_ALL
@@ -125,7 +125,7 @@ namespace WowMoPObjMgrTest
         End = 8
     }
 
-    enum CGItemData
+    public enum CGItemData
     {
         Owner = CGObjectData.End + 0, // size 2, flags MIRROR_ALL
         ContainedIn = CGObjectData.End + 2, // size 2, flags MIRROR_ALL
@@ -145,14 +145,14 @@ namespace WowMoPObjMgrTest
         End = CGObjectData.End + 61
     }
 
-    enum CGContainerData
+    public enum CGContainerData
     {
         Slots = CGItemData.End + 0, // size 72, flags MIRROR_ALL
         NumSlots = CGItemData.End + 72, // size 1, flags MIRROR_ALL
         End = CGItemData.End + 73
     }
 
-    enum CGUnitData
+    public enum CGUnitData
     {
         Charm = CGObjectData.End + 0, // size 2, flags MIRROR_ALL
         Summon = CGObjectData.End + 2, // size 2, flags MIRROR_ALL
@@ -237,7 +237,7 @@ namespace WowMoPObjMgrTest
         End = CGObjectData.End + 152
     }
 
-    enum CGPlayerData
+    public enum CGPlayerData
     {
         DuelArbiter = CGUnitData.End + 0, // size 2, flags MIRROR_ALL
         PlayerFlags = CGUnitData.End + 2, // size 1, flags MIRROR_ALL
@@ -332,7 +332,7 @@ namespace WowMoPObjMgrTest
         End = CGUnitData.End + 1827
     }
 
-    enum CGGameObjectData
+    public enum CGGameObjectData
     {
         CreatedBy = CGObjectData.End + 0, // size 2, flags MIRROR_ALL
         DisplayID = CGObjectData.End + 2, // size 1, flags MIRROR_ALL
@@ -345,7 +345,7 @@ namespace WowMoPObjMgrTest
         End = CGObjectData.End + 12
     }
 
-    enum CGDynamicObjectData
+    public enum CGDynamicObjectData
     {
         Caster = CGObjectData.End + 0, // size 2, flags MIRROR_ALL
         TypeAndVisualID = CGObjectData.End + 2, // size 1, flags MIRROR_VIEWER_DEPENDENT
@@ -355,7 +355,7 @@ namespace WowMoPObjMgrTest
         End = CGObjectData.End + 6
     }
 
-    enum CGCorpseData
+    public enum CGCorpseData
     {
         Owner = CGObjectData.End + 0, // size 2, flags MIRROR_ALL
         PartyGUID = CGObjectData.End + 2, // size 2, flags MIRROR_ALL
@@ -368,7 +368,7 @@ namespace WowMoPObjMgrTest
         End = CGObjectData.End + 28
     }
 
-    enum CGAreaTriggerData
+    public enum CGAreaTriggerData
     {
         Caster = CGObjectData.End + 0, // size 2, flags MIRROR_ALL
         Duration = CGObjectData.End + 2, // size 1, flags MIRROR_ALL
@@ -378,7 +378,7 @@ namespace WowMoPObjMgrTest
         End = CGObjectData.End + 6
     }
 
-    enum CGSceneObjectData
+    public enum CGSceneObjectData
     {
         ScriptPackageID = CGObjectData.End + 0, // size 1, flags MIRROR_ALL
         RndSeedVal = CGObjectData.End + 1, // size 1, flags MIRROR_ALL

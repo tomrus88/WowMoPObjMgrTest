@@ -3,7 +3,8 @@ namespace WowMoPObjMgrTest
 {
     class Offsets
     {
-        public const int s_curMgr_x86 = 0x00CAF7CC; // 5.4.2.17658
+        //public const int s_curMgr_x86 = 0x00CAF7CC; // 5.4.2.17658
+        public const int s_curMgr_x86 = 0x00CB42D4; // 5.4.7.18019
         public const int s_curMgr_x64 = 0x0135D1E8; // 5.4.0.17359
 
         public const int g_FactionTemplateDB_x86 = 0x00C07888;    // 5.3.0.17128

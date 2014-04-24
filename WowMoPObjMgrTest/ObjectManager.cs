@@ -61,17 +61,17 @@ namespace WowMoPObjMgrTest
     {
         public TSHashTable VisibleObjects; // m_objects
         public TSHashTable LazyCleanupObjects; // m_lazyCleanupObjects
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 11)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 12)]
         // m_lazyCleanupFifo, m_freeObjects, m_visibleObjects, m_reenabledObjects, whateverObjects...
         public TSExplicitList[] Links; // Links[9] has all objects stored in VisibleObjects it seems
-#if !X64
-        public int Unknown1; // wtf is that and why x86 only?
-#endif
+//#if !X64
+//        public int Unknown1; // wtf is that and why x86 only?
+//#endif
         public ulong ActivePlayer;
-        public int PlayerType;
         public int MapId;
         public IntPtr ClientConnection;
         public IntPtr MovementGlobals;
+        public int Unk1;
     }
 
     class ObjectManager : IEnumerable<WowObject>
