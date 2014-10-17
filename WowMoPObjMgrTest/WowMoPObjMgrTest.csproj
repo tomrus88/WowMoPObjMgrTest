@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A82C4C6A-6E7E-4A03-81A9-0B26B0563A87}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WowMoPObjMgrTest</RootNamespace>
     <AssemblyName>WowMoPObjMgrTest</AssemblyName>
@@ -83,6 +83,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
+    <Compile Include="Int128.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="ObjectManager.cs" />
     <Compile Include="Objects\WowGameObject.cs" />

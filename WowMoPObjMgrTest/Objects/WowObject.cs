@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SoftFluent;
 
 namespace WowMoPObjMgrTest
 {
@@ -20,17 +21,16 @@ namespace WowMoPObjMgrTest
     struct WowObjStruct
     {                               // x86  x64
         IntPtr vtable;              // 0x00 0x00
-        public IntPtr Descriptors;  // 0x08 0x10
-        //int unk0;                   // 0x04 0x08
-        IntPtr unk1;                // 0x0C 0x18
-        public int ObjectType;      // 0x10 0x20
-        int unk3;                   // 0x14 0x24
-        IntPtr unk4;                // 0x18 0x28
-        IntPtr unk5;                // 0x1C 0x30
-        IntPtr unk6;                // 0x20 0x38
-        IntPtr unk7;                // 0x24 0x40
-        IntPtr unk8;                // 0x28 0x48
-        public ulong Guid;          // 0x30 0x50
+        public IntPtr Descriptors;  // 0x04 0x10
+        IntPtr unk1;                // 0x08 0x18
+        public int ObjectType;      // 0x0C 0x20
+        IntPtr unk3;                // 0x10 0x24
+        IntPtr unk4;                // 0x14 0x28
+        IntPtr unk5;                // 0x18 0x30
+        IntPtr unk6;                // 0x1C 0x38
+        IntPtr unk7;                // 0x20 0x40
+        IntPtr unk8;                // 0x24 0x48
+        public Int128 Guid;         // 0x28 0x50
     }
 
     class WowObject

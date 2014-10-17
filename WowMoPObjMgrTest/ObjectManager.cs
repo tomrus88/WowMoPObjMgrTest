@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using SoftFluent;
 
 namespace WowMoPObjMgrTest
 {
@@ -56,18 +57,18 @@ namespace WowMoPObjMgrTest
         public uint m_chunk;
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    struct CurMgr // 248 bytes x86, 456 bytes x64
+    [StructLayout(LayoutKind.Sequential, Pack = 4)]
+    struct CurMgr // 280 bytes x86, 512 bytes x64
     {
         public TSHashTable VisibleObjects; // m_objects
         public TSHashTable LazyCleanupObjects; // m_lazyCleanupObjects
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 12)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 13)]
         // m_lazyCleanupFifo, m_freeObjects, m_visibleObjects, m_reenabledObjects, whateverObjects...
-        public TSExplicitList[] Links; // Links[9] has all objects stored in VisibleObjects it seems
-//#if !X64
-//        public int Unknown1; // wtf is that and why x86 only?
-//#endif
-        public ulong ActivePlayer;
+        public TSExplicitList[] Links; // Links[13] has all objects stored in VisibleObjects it seems
+#if !X64
+        public int Unknown1; // wtf is that and why x86 only?
+#endif
+        public Int128 ActivePlayer;
         public int MapId;
         public IntPtr ClientConnection;
         public IntPtr MovementGlobals;

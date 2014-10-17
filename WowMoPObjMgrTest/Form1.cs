@@ -23,7 +23,7 @@ namespace WowMoPObjMgrTest
             //var vt = Memory.Read<IntPtr>(pl.Pointer);
             //if (pl != null)
             //{
-            //    for (var i = 0; i < 0x1200; i += 4)
+            //    for (var i = 0; i < 0x1500; i += 4)
             //        Console.WriteLine("{0:X4}: {1}", i, Memory.Read<float>(pl.Pointer + i));
             //}
 
@@ -162,7 +162,7 @@ namespace WowMoPObjMgrTest
         }
 
         int[] gos = new int[] { 223103, 223107 };
-        int[] npcs = new int[] { /*52176, 54318, 54319, 50831, 50339, 50409, 50410, 50411,*/ 50061, 50062, 51236 };
+        int[] npcs = new int[] { /*52176, 54318, 54319, 50831, 50339, 50409, 50410, 50411,*/ 32491 };
 
         SoundPlayer sp = new SoundPlayer("RaidWarning.wav");
 
