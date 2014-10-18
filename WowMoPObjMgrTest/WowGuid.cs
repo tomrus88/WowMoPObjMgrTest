@@ -101,18 +101,18 @@ namespace WowMoPObjMgrTest
                 //case GuidType.StaticDoor:
                 //    return String.Format("{0}-{1}-{2}", Type, RealmId, CreationBits);
                 default:
-                    return String.Format("0x{0:X32}", m_guid);
+                    return String.Format("{0}-{1:X32}", Type, m_guid);
             }
         }
 
-        public static bool operator ==(WowGuid guid, WowGuid guid2)
+        public static bool operator ==(WowGuid left, WowGuid right)
         {
-            return guid.m_guid == guid2.m_guid;
+            return left.m_guid == right.m_guid;
         }
 
-        public static bool operator !=(WowGuid guid, WowGuid guid2)
+        public static bool operator !=(WowGuid left, WowGuid right)
         {
-            return guid.m_guid != guid2.m_guid;
+            return left.m_guid != right.m_guid;
         }
 
         public override bool Equals(object obj)
