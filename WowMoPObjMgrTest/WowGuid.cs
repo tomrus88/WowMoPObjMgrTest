@@ -70,6 +70,8 @@ namespace WowMoPObjMgrTest
             //<type>:<realmID>:<dbID>
             if (Type == GuidType.Creature || Type == GuidType.Vehicle || Type == GuidType.Pet)
                 return String.Format("{0}-{1}-{2}-{3}-{4}-{5}-{6:X10}", Type, SubType, RealmId, MapId, ServerId, Id, CreationBits);
+            else if (Type == GuidType.Player)
+                return String.Format("{0}-{1}-{2:X8}", Type, RealmId, CreationBits);
             else
                 return String.Format("0x{0:X32}", m_guid);
         }
