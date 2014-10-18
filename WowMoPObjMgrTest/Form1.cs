@@ -4,6 +4,7 @@ using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using SoftFluent;
 
 namespace WowMoPObjMgrTest
 {
@@ -11,6 +12,15 @@ namespace WowMoPObjMgrTest
     {
         public Form1()
         {
+            //var o = Game.ObjMgr.ActivePlayerObj.TargetGuid;
+
+            //Creature-0-1602-0-37-43841-0000408F41
+            //WowGuid guid1 = new WowGuid(new Int128(0x0000440000408fba, 0x1c19086cc03f0b40));
+            //Creature-0-1602-870-68-64557-0000408FBA
+            //WowGuid guid2 = new WowGuid(new Int128(0x0000250000408f41, 0x1c190800002ad040));
+            //Pet-0-1602-870-109-42713-0101C1CDA2
+            //WowGuid guid3 = new WowGuid(new Int128(0x00006d0101c1cda2, 0x2419086cc029b640));
+
             //int size = Marshal.SizeOf(typeof(CurMgr));
 
             //var objs = Game.ObjMgr.Where(o => o.Type == WowObjectType.GameObject).OrderBy(o => (o as WowGameObject).DistanceToMe);

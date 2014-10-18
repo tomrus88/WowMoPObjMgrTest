@@ -254,7 +254,7 @@ namespace SoftFluent
             _lo = BitConverter.ToUInt64(value, 0);
         }
 
-        private Int128(ulong hi, ulong lo)
+        public Int128(ulong hi, ulong lo)
         {
             _hi = hi;
             _lo = lo;
@@ -2059,6 +2059,20 @@ namespace SoftFluent
             Int128 result = left;
             result._hi |= right._hi;
             result._lo |= right._lo;
+            return result;
+        }
+
+        /// <summary>
+        /// Implements the operator ~.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The result of the operator.</returns>
+        public static Int128 operator ~(Int128 value)
+        {
+            Int128 result = 0;
+            result._hi = ~value._hi;
+            result._lo = ~value._lo;
             return result;
         }
 

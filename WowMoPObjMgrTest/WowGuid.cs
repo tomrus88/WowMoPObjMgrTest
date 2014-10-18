@@ -3,11 +3,58 @@ using SoftFluent;
 
 namespace WowMoPObjMgrTest
 {
+    public enum GuidType : byte
+    {
+        Null = 0,
+        Uniq = 1,
+        Player = 2,
+        Item = 3,
+        StaticDoor = 4,
+        Transport = 5,
+        Conversation = 6,
+        Creature = 7,
+        Vehicle = 8,
+        Pet = 9,
+        GameObject = 10,
+        DynamicObject = 11,
+        AreaTrigger = 12,
+        Corpse = 13,
+        LootObject = 14,
+        SceneObject = 15,
+        Scenario = 16,
+        AIGroup = 17,
+        DynamicDoor = 18,
+        ClientActor = 19,
+        Vignette = 20,
+        CallForHelp = 21,
+        AIResource = 22,
+        AILock = 23,
+        AILockTicket = 24,
+        ChatChannel = 25,
+        Party = 26,
+        Guild = 27,
+        WowAccount = 28,
+        BNetAccount = 29,
+        GMTask = 30,
+        MobileSession = 31,
+        RaidGroup = 32,
+        Spell = 33,
+        Mail = 34,
+        WebObj = 35,
+        LFGObject = 36,
+        LFGList = 37,
+        UserRouter = 38,
+        PVPQueueGroup = 39,
+        UserClient = 40,
+        PetBattle = 41,
+        UniqueUserClient = 42,
+        BattlePet = 43
+    }
+
     struct WowGuid
     {
         private Int128 m_guid;
 
-        public Int128 Value { get { return m_guid; } }
         public static readonly WowGuid Zero = new WowGuid(0);
 
         public WowGuid(Int128 guid)
@@ -17,23 +64,30 @@ namespace WowMoPObjMgrTest
 
         public override string ToString()
         {
-            return String.Format("0x{0:X32}", m_guid);
+            //Creature/Vehicle/Pet
+            //<type>:<subtype>:<realmID>:<mapID>:<serverID>:<dbID>:<creationbits>
+            //Player/Item
+            //<type>:<realmID>:<dbID>
+            if (Type == GuidType.Creature || Type == GuidType.Vehicle || Type == GuidType.Pet)
+                return String.Format("{0}-{1}-{2}-{3}-{4}-{5}-{6:X10}", Type, SubType, RealmId, MapId, ServerId, Id, CreationBits);
+            else
+                return String.Format("0x{0:X32}", m_guid);
         }
 
         public static bool operator ==(WowGuid guid, WowGuid guid2)
         {
-            return guid.Value == guid2.Value;
+            return guid.m_guid == guid2.m_guid;
         }
 
         public static bool operator !=(WowGuid guid, WowGuid guid2)
         {
-            return guid.Value != guid2.Value;
+            return guid.m_guid != guid2.m_guid;
         }
 
         public override bool Equals(object obj)
         {
             if (obj is WowGuid)
-                return m_guid == ((WowGuid)obj).Value;
+                return m_guid == ((WowGuid)obj).m_guid;
             return false;
         }
 
@@ -42,46 +96,51 @@ namespace WowMoPObjMgrTest
             return m_guid.GetHashCode();
         }
 
-        public byte Type
+        public GuidType Type
         {
-            get { return (byte)((m_guid >> 58) & 0x1F); }
-            set { m_guid |= (Int128)value << 58; }
+            get { return (GuidType)(byte)((m_guid >> 58) & 0x3F); }
+            //set
+            //{
+            //    m_guid &= ~(Int128)0x3F << 58;
+            //    m_guid |= (Int128)(byte)value << 58;
+            //}
         }
 
         public byte SubType
         {
-            get { return (byte)((m_guid >> 120) & 0x1F); }
-            set { m_guid |= (Int128)value << 120; }
+            get { return (byte)((m_guid >> 120) & 0x3F); }
+            //set { m_guid |= (Int128)value << 120; }
         }
 
         public ushort RealmId
         {
             get { return (ushort)((m_guid >> 42) & 0x1FFF); }
-            set { m_guid |= (Int128)value << 42; }
+            //set { m_guid |= (Int128)value << 42; }
         }
 
         public ushort ServerId
         {
             get { return (ushort)((m_guid >> 104) & 0x1FFF); }
-            set { m_guid |= (Int128)value << 104; }
+            //set { m_guid |= (Int128)value << 104; }
         }
 
         public ushort MapId
         {
             get { return (ushort)((m_guid >> 29) & 0x1FFF); }
-            set { m_guid |= (Int128)value << 29; }
+            //set { m_guid |= (Int128)value << 29; }
         }
 
+        // Creature, Pet, Vehicle
         public uint Id
         {
-            get { return (uint)(m_guid & 0xFFFFFF) >> 6; }
-            set { m_guid |= (Int128)value << 6; }
+            get { return (uint)((m_guid >> 6) & 0x7FFFFF); }
+            //set { m_guid |= (Int128)value << 6; }
         }
 
         public ulong CreationBits
         {
             get { return (ulong)((m_guid >> 64) & 0xFFFFFFFFFF); }
-            set { m_guid |= (Int128)value << 64; }
+            //set { m_guid |= (Int128)value << 64; }
         }
     }
 }
