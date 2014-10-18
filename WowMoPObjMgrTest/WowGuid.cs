@@ -66,14 +66,43 @@ namespace WowMoPObjMgrTest
         {
             //Creature/Vehicle/Pet
             //<type>:<subtype>:<realmID>:<mapID>:<serverID>:<dbID>:<creationbits>
-            //Player/Item
+            //Player
             //<type>:<realmID>:<dbID>
-            if (Type == GuidType.Creature || Type == GuidType.Vehicle || Type == GuidType.Pet)
-                return String.Format("{0}-{1}-{2}-{3}-{4}-{5}-{6:X10}", Type, SubType, RealmId, MapId, ServerId, Id, CreationBits);
-            else if (Type == GuidType.Player)
-                return String.Format("{0}-{1}-{2:X8}", Type, RealmId, CreationBits);
-            else
-                return String.Format("0x{0:X32}", m_guid);
+            //Item
+            //<type>:<realmID>:<???>:<dbID>
+            switch (Type)
+            {
+                case GuidType.Creature:
+                case GuidType.Vehicle:
+                case GuidType.Pet:
+                case GuidType.GameObject:
+                case GuidType.AreaTrigger:
+                case GuidType.DynamicObject:
+                case GuidType.Corpse:
+                case GuidType.LootObject:
+                case GuidType.SceneObject:
+                case GuidType.Scenario:
+                case GuidType.AIGroup:
+                case GuidType.DynamicDoor:
+                case GuidType.Vignette:
+                case GuidType.Conversation:
+                case GuidType.CallForHelp:
+                case GuidType.AIResource:
+                case GuidType.AILock:
+                case GuidType.AILockTicket:
+                    return String.Format("{0}-{1}-{2}-{3}-{4}-{5}-{6:X10}", Type, SubType, RealmId, MapId, ServerId, Id, CreationBits);
+                case GuidType.Player:
+                    return String.Format("{0}-{1}-{2:X8}", Type, RealmId, (ulong)(m_guid >> 64));
+                case GuidType.Item:
+                    return String.Format("{0}-{1}-{2}-{3:X10}", Type, RealmId, (uint)((m_guid >> 18) & 0xFFFFFF), (ulong)(m_guid >> 64));
+                //case GuidType.ClientActor:
+                //    return String.Format("{0}-{1}-{2}", Type, RealmId, CreationBits);
+                //case GuidType.Transport:
+                //case GuidType.StaticDoor:
+                //    return String.Format("{0}-{1}-{2}", Type, RealmId, CreationBits);
+                default:
+                    return String.Format("0x{0:X32}", m_guid);
+            }
         }
 
         public static bool operator ==(WowGuid guid, WowGuid guid2)
