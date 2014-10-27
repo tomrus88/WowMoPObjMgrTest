@@ -6,7 +6,6 @@ namespace WowMoPObjMgrTest
     {
         public int TypeId;
         public int DisplayId;
-        //public int Name;
     }
 
     class WowGameObject : WowObject
@@ -41,9 +40,9 @@ namespace WowMoPObjMgrTest
             get { return DistanceTo(Game.ObjMgr.ActivePlayerObj); }
         }
 
-        public ulong CreatedBy
+        public WowGuid CreatedBy
         {
-            get { return GetValue<ulong>(CGGameObjectData.CreatedBy); }
+            get { return GetValue<WowGuid>(CGGameObjectData.CreatedBy); }
         }
 
         public int DisplayID

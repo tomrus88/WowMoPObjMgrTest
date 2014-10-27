@@ -30,7 +30,7 @@ namespace WowMoPObjMgrTest
         IntPtr unk6;                // 0x1C 0x38
         IntPtr unk7;                // 0x20 0x40
         IntPtr unk8;                // 0x24 0x48
-        public Int128 Guid;         // 0x28 0x50
+        public WowGuid Guid;         // 0x28 0x50
     }
 
     class WowObject
@@ -57,7 +57,7 @@ namespace WowMoPObjMgrTest
 
         public WowGuid Guid
         {
-            get { return new WowGuid(ObjectData.Guid); }
+            get { return ObjectData.Guid; }
         }
 
         public WowGuid VisibleGuid
@@ -81,9 +81,9 @@ namespace WowMoPObjMgrTest
             set { SetValue<uint>(CGObjectData.DynamicFlags, value); }
         }
 
-        public ulong Data
+        public Int128 Data
         {
-            get { return GetValue<ulong>(CGObjectData.Data); }
+            get { return GetValue<Int128>(CGObjectData.Data); }
         }
 
         public T GetValue<T>(Enum index) where T : struct
