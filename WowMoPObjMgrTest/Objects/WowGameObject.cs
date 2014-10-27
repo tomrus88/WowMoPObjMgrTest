@@ -2,6 +2,13 @@
 
 namespace WowMoPObjMgrTest
 {
+    struct GameobjectStats
+    {
+        public int TypeId;
+        public int DisplayId;
+        //public int Name;
+    }
+
     class WowGameObject : WowObject
     {
         public WowGameObject(IntPtr address)
@@ -70,6 +77,34 @@ namespace WowMoPObjMgrTest
         {
             get { return GetValue<int>(CGGameObjectData.StateSpellVisualID); }
             set { SetValue<int>(CGGameObjectData.StateSpellVisualID, value); }
+        }
+
+        public int StateAnimID
+        {
+            get { return GetValue<int>(CGGameObjectData.StateAnimID); }
+            set { SetValue<int>(CGGameObjectData.StateAnimID, value); }
+        }
+
+        public int StateAnimKitID
+        {
+            get { return GetValue<int>(CGGameObjectData.StateAnimKitID); }
+            set { SetValue<int>(CGGameObjectData.StateAnimKitID, value); }
+        }
+
+        public int StateWorldEffectID
+        {
+            get { return GetValue<int>(CGGameObjectData.StateWorldEffectID); }
+            set { SetValue<int>(CGGameObjectData.StateWorldEffectID, value); }
+        }
+
+        public IntPtr Stats
+        {
+            get { return Memory.Read<IntPtr>(Pointer + (IntPtr.Size == 4 ? Offsets.GOStats_x86 : Offsets.GOStats_x64)); }
+        }
+
+        public GameObjectTypeId TypeId
+        {
+            get { return (GameObjectTypeId)Memory.Read<GameobjectStats>(Stats).TypeId; }
         }
     }
 }

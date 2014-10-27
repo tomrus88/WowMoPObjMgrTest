@@ -10,7 +10,7 @@ namespace WowMoPObjMgrTest
         static Memory()
         {
             if (IntPtr.Size == 4)
-                Reader = new ProcessMemory("Wow");
+                Reader = new ProcessMemory("WowB");
             else
                 Reader = new ProcessMemory("Wow-64");
         }

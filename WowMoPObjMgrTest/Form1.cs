@@ -73,8 +73,8 @@ namespace WowMoPObjMgrTest
             int gos = 0;
             int other = 0;
 
-            //var objects = Game.ObjMgr.Where(o => o.Type == WowObjectType.GameObject).OrderBy(o => (o as WowGameObject).DistanceToMe);
-            var objects = Game.ObjMgr;
+            var objects = Game.ObjMgr.Where(o => o.Type == WowObjectType.GameObject).Where(o => (o as WowGameObject).TypeId == GameObjectTypeId.Chest).OrderBy(o => (o as WowGameObject).DistanceToMe);
+            //var objects = Game.ObjMgr;
 
             foreach (WowObject obj in objects)
             {
@@ -162,6 +162,12 @@ namespace WowMoPObjMgrTest
             if (obj.Guid == Game.ObjMgr.ActivePlayer)
                 return "<<< Me!" + " " + (obj as WowUnit).Position;
 
+            if (obj.Type == WowObjectType.GameObject)
+            {
+                var go = obj as WowGameObject;
+                return "GO" + " type " + go.TypeId + ", " + go.Position;
+            }
+
             if (obj.Type == WowObjectType.Player)
                 return "Home Realm: " + (obj as WowPlayer).RealmId.ToString("X8");
 
@@ -171,8 +177,8 @@ namespace WowMoPObjMgrTest
             return String.Empty;
         }
 
-        int[] gos = new int[] { 223103, 223107 };
-        int[] npcs = new int[] { /*52176, 54318, 54319, 50831, 50339, 50409, 50410, 50411,*/ 32491 };
+        int[] gos = new int[] { 213363, 213364, 213741, 213742, 223103, 223107 };
+        int[] npcs = new int[] { /*52176, 54318, 54319, 50831, 50339, 50409, 50410, 50411,*/ 32491, 50782, 64272 };
 
         SoundPlayer sp = new SoundPlayer("RaidWarning.wav");
 
@@ -216,6 +222,14 @@ namespace WowMoPObjMgrTest
             //    sp.Stop();
             //}
 
+            //var player = Game.ObjMgr.ActivePlayerObj;
+
+            //if (player == null)
+            //{
+            //    sp.Play();
+            //    return;
+            //}
+
             // Rare units tracking
             foreach (WowObject obj in Game.ObjMgr)
             {
@@ -229,6 +243,14 @@ namespace WowMoPObjMgrTest
                         //    sp.PlayLooping();
                         //else
                         //    sp.Stop();
+                    }
+                }
+
+                if (obj.Type == WowObjectType.GameObject)
+                {
+                    if (gos.Contains(obj.Entry))
+                    {
+                        sp.Play();
                     }
                 }
             }

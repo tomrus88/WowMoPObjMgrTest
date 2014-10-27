@@ -65,8 +65,60 @@ namespace WowMoPObjMgrTest
         Monster = 3 // 8
     }
 
+    enum GameObjectTypeId
+    {
+        Door = 0,
+        Button = 1,
+        Questgiver = 2,
+        Chest = 3,
+        Binder = 4,
+        Generic = 5,
+        Trap = 6,
+        Chair = 7,
+        SpellFocus = 8,
+        Text = 9,
+        Goober = 10,
+        TransportElevator = 11,
+        AreaDamage = 12,
+        Camera = 13,
+        Mapobject = 14,
+        MoTransportShip = 15,
+        DuelFlag = 16,
+        FishingNode = 17,
+        Ritual = 18,
+        Mailbox = 19,
+        DONOTUSE1 = 20,
+        GuardPost = 21,
+        SpellCaster = 22,
+        MeetingStone = 23,
+        FlagStand = 24,
+        FishingHole = 25,
+        FlagDrop = 26,
+        DONOTUSE2 = 27,
+        DONOTUSE3 = 28,
+        ControlZone = 29,
+        AuraGenerator = 30,
+        DungeonDifficulty = 31,
+        BarberChair = 32,
+        DestructibleBuilding = 33,
+        GuildBank = 34,
+        Trapdoor = 35,
+        Newflag = 36,
+        Newflagdrop = 37,
+        GarrisonBuilding = 38,
+        GarrisonPlot = 39,
+        ClientCreature = 40,
+        ClientItem = 41,
+        CapturePoint = 42,
+        PhaseableMO = 43,
+        GarrisonMonument = 44,
+        GarrisonShipment = 45,
+        GarrisonMonumentPlaque = 46,
+        NUM_GAMEOBJECT_TYPE = 47
+    }
+
     [Flags]
-    enum TrackObjectFlags
+    enum TrackObjectFlags : uint
     {
         None = 0x00000000,
         Lockpicking = 0x00000001,
@@ -91,7 +143,17 @@ namespace WowMoPObjMgrTest
         Inscription = 0x00080000,
         OpenFromVehicle = 0x00100000,
         NotSure = 0x00200000,
-        All = -1, // 0xFFFFFFFF
+        F00400000 = 0x00400000,
+        F00800000 = 0x00800000,
+        F01000000 = 0x01000000,
+        F02000000 = 0x02000000,
+        F04000000 = 0x04000000,
+        F08000000 = 0x08000000,
+        F10000000 = 0x10000000,
+        F20000000 = 0x20000000,
+        F40000000 = 0x40000000,
+        F80000000 = 0x80000000,
+        All = 0xFFFFFFFF,
     }
 
     [Flags]
