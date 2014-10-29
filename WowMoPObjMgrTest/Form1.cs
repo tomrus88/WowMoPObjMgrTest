@@ -73,8 +73,8 @@ namespace WowMoPObjMgrTest
             int gos = 0;
             int other = 0;
 
-            var objects = Game.ObjMgr.Where(o => o.Type == WowObjectType.GameObject).Where(o => (o as WowGameObject).TypeId == GameObjectTypeId.Chest).OrderBy(o => (o as WowGameObject).DistanceToMe);
-            //var objects = Game.ObjMgr;
+            //var objects = Game.ObjMgr.Where(o => o.Type == WowObjectType.GameObject).Where(o => (o as WowGameObject).TypeId == GameObjectTypeId.Chest).OrderBy(o => (o as WowGameObject).DistanceToMe);
+            var objects = Game.ObjMgr;
 
             foreach (WowObject obj in objects)
             {
