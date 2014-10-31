@@ -194,8 +194,11 @@ namespace WowMoPObjMgrTest
                             if (field.FieldType == typeof(IntPtr))
                             {
                                 var oldValue = (IntPtr)field.GetValue(row);
-                                var offset = Marshal.OffsetOf(t, field.Name);
-                                field.SetValueDirect(__makeref(row), rowPtr + (int)offset + (int)oldValue);
+                                if (oldValue != IntPtr.Zero)
+                                {
+                                    var offset = Marshal.OffsetOf(t, field.Name);
+                                    field.SetValueDirect(__makeref(row), rowPtr + (int)offset + (int)oldValue);
+                                }
                             }
                         }
                         return row;
