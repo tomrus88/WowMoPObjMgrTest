@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace WowMoPObjMgrTest
 {
@@ -182,7 +183,23 @@ namespace WowMoPObjMgrTest
                     IntPtr rowPtr = GetRowPtr(key);
 
                     if (rowPtr != IntPtr.Zero)
-                        return Memory.Read<T>(rowPtr);
+                    {
+                        // can't find anything better than this
+                        var row = Memory.Read<T>(rowPtr);
+                        Type t = typeof(T);
+                        var fields = t.GetFields();
+
+                        foreach (var field in fields)
+                        {
+                            if (field.FieldType == typeof(IntPtr))
+                            {
+                                var oldValue = (IntPtr)field.GetValue(row);
+                                var offset = Marshal.OffsetOf(t, field.Name);
+                                field.SetValueDirect(__makeref(row), rowPtr + (int)offset + (int)oldValue);
+                            }
+                        }
+                        return row;
+                    }
 
                     throw new KeyNotFoundException();
                 }

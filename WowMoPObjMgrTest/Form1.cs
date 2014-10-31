@@ -63,6 +63,8 @@ namespace WowMoPObjMgrTest
 
             //new DescriptorsDumper();
 
+            var db = Game.AreaTableDB;
+
             listView1.Items.Clear();
 
             int total = 0;
