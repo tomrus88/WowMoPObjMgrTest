@@ -70,6 +70,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB2\AreaPOIRec.cs" />
+    <Compile Include="DB2\DB2.cs" />
+    <Compile Include="DB2\DB2Row.cs" />
+    <Compile Include="DB2\WoWClientDB2.cs" />
     <Compile Include="DBC\AreaTableRec.cs" />
     <Compile Include="DBC\DBC.cs" />
     <Compile Include="DBC\DBCHeader.cs" />

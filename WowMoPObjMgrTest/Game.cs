@@ -4,7 +4,27 @@ namespace WowMoPObjMgrTest
 {
     class Game
     {
-        public static readonly ObjectManager ObjMgr = new ObjectManager();
+        private static ObjectManager objmgr;
+
+        public static ObjectManager ObjMgr
+        {
+            get
+            {
+                if (objmgr == null)
+                {
+                    try
+                    {
+                        objmgr = new ObjectManager();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                return objmgr;
+            }
+        }
 
         public static readonly DBC<AreaTableRec> AreaTableDB = new DBC<AreaTableRec>(Memory.BaseAddress +
             (IntPtr.Size == 4 ? 0xC8CFDC : 0), false);

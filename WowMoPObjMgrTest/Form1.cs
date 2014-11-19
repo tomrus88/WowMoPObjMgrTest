@@ -44,6 +44,13 @@ namespace WowMoPObjMgrTest
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var db2 = new DB2<AreaPOIRec>(Memory.BaseAddress + 0xC80540);
+
+            foreach (var row in db2)
+            {
+                Console.WriteLine("{0}: {1}", row.Key, row.Value.GetString("Name"));
+            }
+
             //Stopwatch sw = new Stopwatch();
 
             //sw.Start();
@@ -76,6 +83,7 @@ namespace WowMoPObjMgrTest
             int other = 0;
 
             //var objects = Game.ObjMgr.Where(o => o.Type == WowObjectType.GameObject).Where(o => (o as WowGameObject).TypeId == GameObjectTypeId.Chest).OrderBy(o => (o as WowGameObject).DistanceToMe);
+            //var objects = Game.ObjMgr.Where(o => o.Type == WowObjectType.GameObject).OrderBy(o => (o as WowGameObject).DistanceToMe);
             var objects = Game.ObjMgr;
 
             foreach (WowObject obj in objects)

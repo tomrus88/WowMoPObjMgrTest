@@ -10,6 +10,6 @@ namespace WowMoPObjMgrTest
     [StructLayout(LayoutKind.Sequential)]
     struct SpellMiscRec
     {
-        int field0; // me don't give a fuck about content atm
+        readonly int field0; // me don't give a fuck about content atm
     }
 }

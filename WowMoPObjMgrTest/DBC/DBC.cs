@@ -13,7 +13,6 @@ namespace WowMoPObjMgrTest
 
         public int MinIndex { get { return m_dbInfo.MinIndex; } }
         public int MaxIndex { get { return m_dbInfo.MaxIndex; } }
-        public int NumRows { get { return m_dbInfo.NumRows; } }
 
         /// <summary>
         /// Initializes a new instance of DBC class using specified memory address
@@ -90,7 +89,7 @@ namespace WowMoPObjMgrTest
             }
             else
             {
-                for (int i = 0; i < NumRows; ++i)
+                for (int i = 0; i < m_dbInfo.NumRows; ++i)
                     yield return Memory.Read<T>(m_dbInfo.FirstRow + i * m_fileHdr.RecordSize);
             }
         }
@@ -211,7 +210,7 @@ namespace WowMoPObjMgrTest
 
         public int Count
         {
-            get { return NumRows; }
+            get { return m_dbInfo.NumRows; }
         }
 
         IEnumerator<KeyValuePair<int, T>> IEnumerable<KeyValuePair<int, T>>.GetEnumerator()

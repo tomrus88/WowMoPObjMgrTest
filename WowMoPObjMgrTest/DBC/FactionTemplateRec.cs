@@ -7,16 +7,16 @@ namespace WowMoPObjMgrTest
     [StructLayout(LayoutKind.Sequential)]
     struct FactionTemplateRec // sizeof(0x38)
     {
-        public uint m_ID;           // 0
-        public uint m_faction;      // 1
-        public uint m_flags;        // 2
-        public uint m_factionGroup; // 3
-        public uint m_friendGroup;  // 4
-        public uint m_enemyGroup;   // 5
+        public readonly uint m_ID;           // 0
+        public readonly uint m_faction;      // 1
+        public readonly uint m_flags;        // 2
+        public readonly uint m_factionGroup; // 3
+        public readonly uint m_friendGroup;  // 4
+        public readonly uint m_enemyGroup;   // 5
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public uint[] m_enemies;    // 6-9
+        public readonly uint[] m_enemies;    // 6-9
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public uint[] m_friend;     // 10-13
+        public readonly uint[] m_friend;     // 10-13
     };
     #pragma warning restore 649
 

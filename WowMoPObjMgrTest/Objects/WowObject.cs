@@ -30,7 +30,7 @@ namespace WowMoPObjMgrTest
         IntPtr unk6;                // 0x1C 0x38
         IntPtr unk7;                // 0x20 0x40
         IntPtr unk8;                // 0x24 0x48
-        public WowGuid Guid;         // 0x28 0x50
+        public WowGuid Guid;        // 0x28 0x50
     }
 
     class WowObject

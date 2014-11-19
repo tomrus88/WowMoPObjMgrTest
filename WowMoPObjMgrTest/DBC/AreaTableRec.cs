@@ -7,35 +7,35 @@ namespace WowMoPObjMgrTest
     [StructLayout(LayoutKind.Sequential)]
     struct AreaTableRec
     {
-        public int ID;
-        public int ContinentID;
-        public int ParentAreaID;
-        public int AreaBit;
-        public int flags_0;
-        public int flags_1;
-        public int SoundProviderPref;
-        public int SoundProviderPrefUnderwater;
-        public int AmbienceID;
-        public int ZoneMusic;
-        public IntPtr _ZoneName;
-        public int IntroSound;
-        public int ExplorationLevel;
-        public IntPtr _AreaName_lang;
-        public int factionGroupMask;
-        public int liquidTypeID_0;
-        public int liquidTypeID_1;
-        public int liquidTypeID_2;
-        public int liquidTypeID_3;
-        public float ambient_multiplier;
-        public int mountFlags;
-        public int uwIntroSound;
-        public int uwZoneMusic;
-        public int uwAmbience;
-        public int world_pvp_id;
-        public int pvpCombatWorldStateID;
-        public int wildBattlePetLevelMin;
-        public int wildBattlePetLevelMax;
-        public int windSettingsID;
+        public readonly int ID;
+        public readonly int ContinentID;
+        public readonly int ParentAreaID;
+        public readonly int AreaBit;
+        public readonly int flags_0;
+        public readonly int flags_1;
+        public readonly int SoundProviderPref;
+        public readonly int SoundProviderPrefUnderwater;
+        public readonly int AmbienceID;
+        public readonly int ZoneMusic;
+        public readonly IntPtr _ZoneName;
+        public readonly int IntroSound;
+        public readonly int ExplorationLevel;
+        public readonly IntPtr _AreaName_lang;
+        public readonly int factionGroupMask;
+        public readonly int liquidTypeID_0;
+        public readonly int liquidTypeID_1;
+        public readonly int liquidTypeID_2;
+        public readonly int liquidTypeID_3;
+        public readonly float ambient_multiplier;
+        public readonly int mountFlags;
+        public readonly int uwIntroSound;
+        public readonly int uwZoneMusic;
+        public readonly int uwAmbience;
+        public readonly int world_pvp_id;
+        public readonly int pvpCombatWorldStateID;
+        public readonly int wildBattlePetLevelMin;
+        public readonly int wildBattlePetLevelMax;
+        public readonly int windSettingsID;
 
         public string ZoneName
         {

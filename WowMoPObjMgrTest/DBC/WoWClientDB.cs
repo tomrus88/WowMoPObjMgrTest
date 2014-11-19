@@ -7,19 +7,19 @@ namespace WowMoPObjMgrTest
     [StructLayout(LayoutKind.Sequential)]
     struct WoWClientDB
     {
-        public IntPtr VTable;         // pointer to vtable
-        public int NumRows;         // number of rows
-        public int MaxIndex;        // maximal row index
-        public int MinIndex;        // minimal row index
-        public IntPtr Unk0;
-        public IntPtr Data;           // pointer to actual dbc file data
-        public IntPtr FirstRow;       // pointer to first row
-        public IntPtr Rows;           // pointer to rows array - not anymore? rows offset?
-        public IntPtr Unk1; // ptr
-        public uint Unk2; // 1
-        public IntPtr Unk3; // ptr
-        public uint RowEntrySize; // 2 or 4
-        public int RowSize;
+        public readonly IntPtr VTable;         // pointer to vtable
+        public readonly int NumRows;         // number of rows
+        public readonly int MaxIndex;        // maximal row index
+        public readonly int MinIndex;        // minimal row index
+        public readonly IntPtr Unk0;
+        public readonly IntPtr Data;           // pointer to actual dbc file data
+        public readonly IntPtr FirstRow;       // pointer to first row
+        public readonly IntPtr Rows;           // pointer to rows array - not anymore? rows offset?
+        public readonly IntPtr Unk1; // ptr
+        public readonly uint Unk2; // 1
+        public readonly IntPtr Unk3; // ptr
+        public readonly uint RowEntrySize; // 2 or 4
+        public readonly int RowSize;
     };
     #pragma warning restore 649
 }
