@@ -72,6 +72,11 @@ namespace WowMoPObjMgrTest
 
             var db = Game.AreaTableDB;
 
+            foreach (var area in db)
+            {
+                Console.WriteLine("{0}: {1}", area.Key, area.Value.AreaName);
+            }
+
             listView1.Items.Clear();
 
             int total = 0;

@@ -27,12 +27,12 @@ namespace WowMoPObjMgrTest
         }
 
         public static readonly DBC<AreaTableRec> AreaTableDB = new DBC<AreaTableRec>(Memory.BaseAddress +
-            (IntPtr.Size == 4 ? 0xC8CFDC : 0), false);
+            (IntPtr.Size == 4 ? 0xC8E11C : 0));
 
         public static readonly DBC<FactionTemplateRec> FactionTemplateDB = new DBC<FactionTemplateRec>(Memory.BaseAddress +
-            (IntPtr.Size == 4 ? Offsets.g_FactionTemplateDB_x86 : Offsets.g_FactionTemplateDB_x64), false);
+            (IntPtr.Size == 4 ? Offsets.g_FactionTemplateDB_x86 : Offsets.g_FactionTemplateDB_x64));
 
         public static readonly DBC<SpellMiscRec> SpellMiscDB = new DBC<SpellMiscRec>(Memory.BaseAddress +
-            (IntPtr.Size == 4 ? Offsets.g_SpellMiscDB_x86 : Offsets.g_SpellMiscDB_x64), false);
+            (IntPtr.Size == 4 ? Offsets.g_SpellMiscDB_x86 : Offsets.g_SpellMiscDB_x64));
     }
 }

@@ -41,6 +41,11 @@ namespace WowMoPObjMgrTest
         {
             get { return Memory.ReadString(_ZoneName, 255); }
         }
+
+        public string AreaName
+        {
+            get { return Memory.ReadString(_AreaName_lang, 255); }
+        }
     };
     #pragma warning restore 649
 }
